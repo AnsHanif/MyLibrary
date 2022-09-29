@@ -1,0 +1,27 @@
+.nav1{
+    background-color: transparent;
+}
+.nav2 {
+    background: #0f0f0fe7;
+  }
+
+@media only screen and (max-width: 991px) {
+    .navbtn{
+        background-color: white;
+        text-align: center;
+    }
+    .icon1{
+        text-align: center;
+    }
+  }
+
+
+.icondiv{
+    display: flex;
+    justify-content: center;   
+}
+.icon1{
+    justify-content: space-between;
+}
+
+

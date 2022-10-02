@@ -24,6 +24,8 @@ export default function Home() {
   <h2 className='text-center mt-5 mb-2'>NEW <span style={{color:"#ce7852"}}>PRODUCTS</span></h2>
   <p className='text-center'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
 </div>
+<div>
+</div>
 
 </div>
   )

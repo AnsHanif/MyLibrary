@@ -23,5 +23,28 @@
 .icon1{
     justify-content: space-between;
 }
-
-
+.ModalCloseBtn:hover{
+    color: #ce7852 !important;
+}
+.modalInput{
+    text-decoration: none;
+    border: none;
+    color: white;
+    border-bottom: 1px solid white;
+    background-color: #16161BF7;
+    font-family: 'Font Awesome 5 free';
+    font-weight: 700;
+    padding: 10px;
+}
+.modalbody{
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+.modalInput::placeholder{
+    color: white;
+    display: flex;
+    padding: 5px;
+}

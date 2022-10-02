@@ -1,0 +1,16 @@
+.shopdiv{
+    position: absolute;
+    top:18rem;
+    /* left: 10rem; */
+    width: 100%;
+    z-index: +1;
+    text-align: center;
+}
+.shopdiv2{
+    position: absolute;
+    top:20rem;
+    /* left: 10rem; */
+    width: 100%;
+    z-index: +1;
+    text-align: center;
+}

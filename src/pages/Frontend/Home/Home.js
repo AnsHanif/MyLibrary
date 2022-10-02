@@ -8,10 +8,10 @@ export default function Home() {
       <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
   <div className="carousel-inner">
     <div className="carousel-item active">
-      <img className="d-block w-100" src={image1} alt="First slide"  height="450"/>
+      <img className="d-block w-100" src={image1} alt="First slide"  height="453"/>
     </div>
     <div className="carousel-item">
-      <img className="d-block w-100" src={image2} alt="Second slide" height="450" />
+      <img className="d-block w-100" src={image2} alt="Second slide" height="453" />
     </div>
   </div>
   <div class="container div2 ">

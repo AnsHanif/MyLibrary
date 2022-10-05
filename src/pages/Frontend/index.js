@@ -11,7 +11,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 export default function index() {
   return (
-    <>
+    <div className='root2'>
     <Header />
     <main>
     <Routes>
@@ -26,6 +26,6 @@ export default function index() {
     </Routes>
     </main>
     <Footer />
-    </>
+    </div>
   )
 }

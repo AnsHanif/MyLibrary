@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './Header.css'
 import logo1 from '../../../../assests/logo/logo.webp'
 import { Link } from "react-router-dom";
@@ -18,6 +18,28 @@ export default function Header() {
     const handleNavLink = ()=>{
       setlayout2(true)
     }
+
+    useEffect(() => {
+      if(window.location.pathname === "/shops"){
+        return setlayout2(true)
+      }
+      if(window.location.pathname === "/books"){
+        return setlayout2(true)
+      }
+      if(window.location.pathname === "/kids"){
+        return setlayout2(true)
+      }
+      if(window.location.pathname === "/about"){
+        return setlayout2(true)
+      }
+      if(window.location.pathname === "/faqs"){
+        return setlayout2(true)
+      }
+      if(window.location.pathname === "/contact"){
+        return setlayout2(true)
+      }
+    }, [])
+    
   return (
     <>
     <nav className={`navbar navbar-expand-lg navbar-light fixed-top  nav1 ${layout ? "nav2 shadow pl-5 pr-5" : "bg-transparent pt-4 pb-4 pl-5 pr-5"}`}>

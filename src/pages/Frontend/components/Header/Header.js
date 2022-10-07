@@ -20,6 +20,9 @@ export default function Header() {
     }
 
     useEffect(() => {
+      if(window.location.pathname === "/"){
+        return setlayout2(false)
+      }
       if(window.location.pathname === "/shops"){
         return setlayout2(true)
       }

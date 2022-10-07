@@ -1,15 +1,11 @@
-/* .left,.right{
-min-height: 100vh;
-}
 
-.right{
-    width: 100%;
-    border: 1px solid black;
+.card{
+    width: 18rem;
 }
-.container-fluid {
-    padding-left: 0 !important;
-  } */
-/* .homediv{
-    min-height: 100vh;
-    width: ;
-} */
+.cards{
+    margin: 0px;
+}
+.cardbtn{
+    display: flex;
+    justify-content: space-between;
+}

@@ -22,9 +22,26 @@
 .div8{
     border: 1px solid black;
 }
+.br1{
+    display: none;
+}
+@media only screen and (max-width: 995px) {
+    .dash1{
+        display: none;
+    }
+    .br1{
+        display: block;
+    }
+}
 @media only screen and (max-width: 667px) {
     .container{
         padding: 0 !important;
+    }
+    .dash1{
+        display: none;
+    }
+    .br1{
+        display: block;
     }
 }
 .btn5{

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import "./Availability.css"
+import "./Status.css"
 import { collection, getDocs, doc, setDoc ,deleteField,updateDoc } from 'firebase/firestore/lite'
 import { firestore } from '../../../config/firebase'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-export default function Availability() {
+export default function Status() {
   const [documents, setdocuments] = useState([])
 
   const collectionName = "Books";
@@ -22,13 +22,13 @@ export default function Availability() {
     setdocuments(array)
   }
 
-  const addToAvailable = async (todo) => {
-    let formData = { isAvailable: true };
+  const addToActive = async (todo) => {
+    let formData = { inActive: true };
     try {
       await setDoc(doc(firestore, "Books", todo.id), formData, { merge: true });
 
-      console.log("Book is Available for Sale");
-      toast.success("Added In Completes", {
+      console.log("Book Status is InActive");
+      toast.success("Book Status is InActive", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -49,7 +49,7 @@ export default function Availability() {
 
       setdocuments(newDocuments);
     } catch (e) {
-      toast.error("Error While Adding Book in Available List", e, {
+      toast.error("Error While Adding Book in Active List", e, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -63,12 +63,12 @@ export default function Availability() {
     }
   };
 
-  const removeFromAvailable = async (t) => {
+  const removeFromActive = async (t) => {
     const delCheck = doc(firestore, "Books", t.id);
     await updateDoc(delCheck, {
-      isAvailable: deleteField(),
+      inActive: deleteField(),
     });
-    toast.success("Remove From Available List", {
+    toast.success("Book Status is Active", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -81,7 +81,7 @@ export default function Availability() {
     let newDocuments = documents.map((doc) => {
       if (doc.id === t.id) {
         let data = { ...t };
-        delete data.isAvailable;
+        delete data.inActive;
         return data;
       } else {
         return doc;
@@ -97,7 +97,7 @@ export default function Availability() {
   return (
     <div className='border'>
       <br />
-      <h1 className='text-center'>Available For Sale</h1>
+      <h1 className='text-center'>Status</h1>
       <br />
       <div className='d-flex justify-content-center align-items-center'>
         <div className="container">
@@ -112,14 +112,14 @@ export default function Availability() {
                     <p className="card-text"><label>Price:</label> {t.price}</p>
                     <hr />
                     <p>
-                    {t.isAvailable? 
-                    <>
-                    <i class="fas fa-check-circle text-success" onClick={()=>{removeFromAvailable(t)}}></i> <span style={{fontSize:"13px"}}>This Book is Available for Sale</span> 
-                    </>
+                    {t.inActive? 
+                    <div className='text-center'>
+                    <i class="fas fa-eye-slash" onClick={()=>{removeFromActive(t)}}></i> <span style={{fontSize:""}}>In Active</span> 
+                    </div>
                     :
-                    <>
-                      <i className="far fa-circle"  onClick={()=>{addToAvailable(t)}}></i> <span style={{fontSize:"13px"}}>This Book is not Available for Sale</span>
-                    </>
+                    <div className='text-center'>
+                      <i class="fa-sharp fa-solid fa-eye" onClick={()=>{addToActive(t)}}></i> <span style={{fontSize:""}}>Active</span>
+                    </div>
                   }
                     </p>
                   </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import "./Home.css"
-import { collection, getDocs, doc, deleteDoc, } from 'firebase/firestore/lite'
+import { collection, getDocs, doc, deleteDoc, setDoc, serverTimestamp } from 'firebase/firestore/lite'
 import { firestore } from '../../../config/firebase'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoading2, setisLoading2] = useState(false)
   const [LoaderChecker2, setLoaderChecker2] = useState()
+
+  const [newtitle, setNewTitle] = useState("")
+  const [newdescription, setNewDescription] = useState("")
+  const [newprice, setNewPrice] = useState("")
+  const [newcategory, setNewCategory] = useState("")
   const collectionName = "Books";
   const docsCollectionRef = collection(firestore, collectionName)
 
@@ -48,71 +53,240 @@ export default function Home() {
     setdocuments(newArray);
     setisLoading2(false)
   };
+
+  const handleUpdate = async (todo) => {
+    let formData = {
+      title: newtitle,
+      description: newdescription,
+      price: newprice,
+      category: newcategory,
+      dateAddedInFav: serverTimestamp(),
+    };
+    try {
+      await setDoc(doc(firestore, "Books", todo.id), formData, { merge: true });
+
+      // console.log("todo updated");
+      toast.success("Todo Updated Successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      let newDocuments = documents.map((doc) => {
+        if (doc.id === todo.id) {
+          let data = { ...todo, ...formData };
+          return data;
+        } else {
+          return doc;
+        }
+      });
+
+      setdocuments(newDocuments);
+    } catch (e) {
+      alert("error while Updating Todo");
+      console.error(e);
+    }
+  };
   return (
-    <div className='border'>
+    <div className=''>
       <br />
       <h1 className='text-center'>My Library</h1>
       <br />
-      <div className='d-flex justify-content-center align-items-center'>
-        <div className="container">
-          <div className="row">
-            {isLoading ?
-              <div className='text-center p-5'>
-                <div
-                  class="spinner-border"
-                  role="status"
-                >
-                  <span class="sr-only">
-                    Loading...
-                  </span>
-                </div>
-              </div>
-              :
-              <>
-                {documents.map((t) => {
-                  return <div className='col-12 col-md-6 col-lg-4 cards d-flex mb-3'>
-                    <div className="card">
-                      <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
-                      <div className="card-body">
-                        <h5 className="card-text">{t.title}</h5>
-                        <p className="card-text">{t.description}</p>
-                        <p className="card-text cardbtn"><label className='pt-1'>Price: {t.price}</label>
 
-                            <button className='btn' onClick={() => {
-                              deleteDocument(t);
-                            }}>
-                            {isLoading2 ?
-                            <>
-                              {
-                                t.id == LoaderChecker2 ? (
-                                  <div>
-                                    <div
-                                      class="spinner-border text-danger spinner-border-sm"
-                                      role="status"
-                                    >
-                                      <span class="sr-only">
-                                        Loading...
-                                      </span>
+      <div className="container-fluid pl-5 pr-5">
+        <div className="row">
+          <div className="tableCol">
+
+            <table className='table'>
+              {isLoading ?
+                <div className='text-center p-3'>
+                  <div
+                    className="spinner-border"
+                    role="status"
+                  >
+                    <span className="sr-only">
+                      Loading...
+                    </span>
+                  </div>
+                </div>
+                :
+                <>
+                  <thead className="text-white" style={{backgroundColor:"#ce7852"}}>
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Category</th>
+                      <th scope='col'>Update</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {documents.map((t) => {
+                      return <>
+
+
+                        <tr>
+                          <td style={{color:"#ce7852"}}>{t.title}</td>
+                          <td>{t.description}</td>
+                          <td style={{color:"#ce7852"}}>{t.price}</td>
+                          <td>{t.category}</td>
+                          <td className='text-center'>
+
+                            <i
+                              className="fa-regular fa-pen-to-square"
+                              // onClick={() => {
+                              //   setUpdateTodoId(t);
+                              // }}
+                              data-toggle="modal"
+                              data-target="#exampleModal"
+                            ></i>
+
+                            {/* <!-- Modal --> */}
+                            <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                  <div className="modal-header p-4">
+                                    <h5 className="modal-title" id="exampleModalLabel">Update Book</h5>
+                                    <button type="button" className="close btn-sm bg-dark" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true"><i className="fa-solid fa-xmark text-white"></i></span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlInput1"
+                                        class="form-label"
+                                      >
+                                        Enter New Title
+                                      </label>
+                                      <input
+                                        type="email"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                        // defaultValue={
+                                        //   UpdateTodoId.title
+                                        // }
+                                        // defaultValue={t.title}
+                                        onChange={(e) => {
+                                          setNewTitle(e.target.value);
+                                        }}
+                                      />
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlTextarea1"
+                                        class="form-label"
+                                      >
+                                        Enter New Description
+                                      </label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                        // defaultValue={
+                                        //   UpdateTodoId.description
+                                        // }
+                                        // defaultValue={t.description}
+                                        onChange={(e) => {
+                                          setNewDescription(
+                                            e.target.value
+                                          );
+                                        }}
+                                      />
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlTextarea1"
+                                        class="form-label"
+                                      >
+                                        Enter New Price
+                                      </label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                        // defaultValue={
+                                        //   UpdateTodoId.description
+                                        // }
+                                        // defaultValue={t.description}
+                                        onChange={(e) => {
+                                          setNewPrice(
+                                            e.target.value
+                                          );
+                                        }}
+                                      />
+                                    </div>
+                                    <div class="mb-3">
+                                      <label
+                                        for="exampleFormControlTextarea1"
+                                        class="form-label"
+                                      >
+                                        Enter New Category
+                                      </label>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        id="exampleFormControlInput1"
+                                        // defaultValue={
+                                        //   UpdateTodoId.description
+                                        // }
+                                        // defaultValue={t.description}
+                                        onChange={(e) => {
+                                          setNewCategory(
+                                            e.target.value
+                                          );
+                                        }}
+                                      />
                                     </div>
                                   </div>
-                                )
-                                : <i className="fas fa-trash-alt text-danger" style={{ fontSize: "20px" }}></i>
-                              }
+                                  <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { handleUpdate(t) }}>Save changes</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </td>
+                          <td className='text-center'><button type="button" className="btn" onClick={() => { deleteDocument(t) }}>
+                            {isLoading2 ?
+                              <>
+                                {
+                                  t.id == LoaderChecker2 ? (
+                                    <div>
+                                      <div
+                                        className="spinner-border text-danger spinner-border-sm"
+                                        role="status"
+                                      >
+                                        <span className="sr-only">
+                                          Loading...
+                                        </span>
+                                      </div>
+                                    </div>
+                                  )
+                                    : <i className="fas fa-trash-alt text-danger" style={{ fontSize: "20px" }}></i>
+                                }
                               </>
                               :
                               <i className="fas fa-trash-alt text-danger" style={{ fontSize: "20px" }}></i>
                             }
-                              </button>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                })}
-              </>
-            }
+                          </button></td>
+                        </tr>
+                      </>
+                    })}
+                  </tbody>
+                </>
+              }
+            </table>
           </div>
         </div>
       </div>
+
     </div>
   )
 }

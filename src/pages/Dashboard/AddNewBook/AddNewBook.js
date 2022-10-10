@@ -97,7 +97,7 @@ export default function AddNewBook() {
             <div className="col"><span className='text'>URL:<span className='text-white dash1'>--------</span></span><br className='br1'/><input type="text" onChange={e=>{seturl(e.target.value)}} className='inp1' /> </div>
           </div>
           <div className="row p-3">
-            <div className="col"><span className='text'>Category:<span className='text-white dash1'>--------</span></span><br className='br1'/><input type="text" onChange={e=>{setcategory(e.target.value)}} className='inp1' /> </div>
+            <div className="col"><span className='text'>Category:<span className='text-white dash1'>---</span></span><br className='br1'/><input type="text" onChange={e=>{setcategory(e.target.value)}} className='inp1' /> </div>
           </div>
           <div className="row p-3">
           <div className="col"><span className='text'>Image:<span className='text-white dash1'>------</span></span><br className='br1'/><input type="file" placeholder='Description' onChange={e => { setimg(e.target.files[0]) }} className='inp1'/></div>

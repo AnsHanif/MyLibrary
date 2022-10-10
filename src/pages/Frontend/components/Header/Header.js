@@ -1,8 +1,11 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
+import { AuthContext } from '../../../../contexts/AuthContext';
 import './Header.css'
 import logo1 from '../../../../assests/logo/logo.webp'
 import { Link } from "react-router-dom";
 export default function Header() {
+    const {classes , setclasses} = useContext(AuthContext)
+
     const [layout2, setlayout2] = useState(false)
     const [layout, setlayout] = useState(false)
     window.addEventListener("scroll", () => {
@@ -17,8 +20,12 @@ export default function Header() {
 
     const handleNavLink = ()=>{
       setlayout2(true)
+      setclasses("rootshop")
     }
-
+    const handleNavHome = ()=>{
+      setlayout2(false)
+      setclasses("roothome")
+    }
     useEffect(() => {
       if(window.location.pathname === "/"){
         return setlayout2(false)
@@ -46,7 +53,7 @@ export default function Header() {
   return (
     <>
     <nav className={`navbar navbar-expand-lg navbar-light fixed-top  nav1 ${layout ? "nav2 shadow pl-5 pr-5" : "bg-transparent pt-4 pb-4 pl-5 pr-5"}`}>
-      <Link to="/" style={{height:"60px"}} onClick={()=>{setlayout2(false)}}>
+      <Link to="/" style={{height:"60px"}} onClick={handleNavHome}>
     <img className="d-block w-100" src={logo1} alt="First slide"/>
       </Link>
   <button className={`navbar-toggler ${layout? "bg-white" : ""} ${layout2 ? " bg-white" : ""}`}  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +63,7 @@ export default function Header() {
   <div className="collapse navbar-collapse navbtn" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
       <li className="nav-item active">
-      <h5 onClick={()=>{setlayout2(false)}}><Link to="/" className="nav-link">
+      <h5 onClick={handleNavHome}><Link to="/" className="nav-link">
         {layout ? 
         <span style={{color:"white"}}>HOME</span> 
         :

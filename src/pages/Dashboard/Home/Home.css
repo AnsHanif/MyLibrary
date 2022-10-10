@@ -1,4 +1,4 @@
-
+/* 
 .card{
     width: 18rem;
 }
@@ -8,4 +8,32 @@
 .cardbtn{
     display: flex;
     justify-content: space-between;
+} */
+@media only screen and (max-width: 995px) {
+.tableCol{
+    height: 530px;
+    width: 90%;
+    overflow-y: scroll ;
+}
+}
+@media only screen and (max-width: 900px) {
+    .tableCol{
+        height: 530px;
+        width: 80%;
+        overflow-y: scroll ;
+    }
+}
+@media only screen and (max-width: 660px) {
+    .tableCol{
+        height: 530px;
+        width: 100%;
+        overflow-y: scroll ;
+    }
+}
+@media only screen and (max-width: 375px) {
+    .tableCol{
+        height: 530px;
+        width: 100%;
+        overflow-y: scroll ;
+    }
 }

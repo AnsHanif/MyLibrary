@@ -6,9 +6,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import image1 from '../../../assests/images/1.webp'
 import image2 from '../../../assests/images/2.webp'
-// import image3 from '../../../assests/images/9.webp'
+import { Element } from 'react-scroll';
 export default function Home() {
   const [documents, setdocuments] = useState([])
+  const [filteredDocuments, setFilteredDocuments] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 
   const collectionName = "Books";
@@ -18,13 +19,27 @@ export default function Home() {
     let array = [];
     const querySnapshot = await getDocs(docsCollectionRef);
     querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
+      // console.log(`${doc.id} => ${doc.data()}`);
 
       array.push({ ...doc.data(), id: doc.id })
     });
 
     setdocuments(array)
+    setFilteredDocuments(array)
     setIsLoading(false)
+  }
+
+  const handleFilteredDocuments = (category) => {
+    console.log(category)
+    // console.log(documents)
+
+    if (category !== "all") {
+      let filteredDocuments = documents.filter((book) => book.category === category)
+      console.log(filteredDocuments)
+      setFilteredDocuments(filteredDocuments)
+    } else {
+      setFilteredDocuments(documents)
+    }
   }
 
   useEffect(() => {
@@ -49,7 +64,9 @@ export default function Home() {
         </div>
       </div>
       <div>
+        <Element name='/newProducts'>
         <h2 className='text-center mt-5 mb-2'>NEW <span style={{ color: "#ce7852" }}>PRODUCTS</span></h2>
+        </Element>
         <p className='text-center'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
         <p className='text-center pb-5'>These Books Are Not For Sale</p>
 
@@ -74,7 +91,7 @@ export default function Home() {
                       {!t.inActive &&
                         <>
                           {!t.isAvailable &&
-                            <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4'>
+                            <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
                               <div className="card">
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">
@@ -103,10 +120,17 @@ export default function Home() {
         </div>
 
         <div className='pt-5'>
+        <Element name='/allProducts'>
           <h2 className='text-center mt-5 mb-2'>ALL <span style={{ color: "#ce7852" }}>PRODUCTS</span></h2>
+        </Element>
           <p className='text-center'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
-          <p className='text-center pb-5'>These Books Are Available For Sale</p>
-
+          <p className='text-center pb-3'>These Books Are Available For Sale</p>
+          <div className=' pb-5 btndiv'>
+            <button type='button' className='btn' onClick={() => { handleFilteredDocuments("all") }}><b>ALL</b></button><span className='pt-1 text-secondary'>|</span>
+            <button type='button' className='btn' onClick={() => { handleFilteredDocuments("heros") }}><b>HEROS</b></button><span className='pt-1 text-secondary'>|</span>
+            <button type='button' className='btn' onClick={() => { handleFilteredDocuments("adventure") }}><b>ADVENTURE</b></button><span className='pt-1 text-secondary'>|</span>
+            <button type='button' className='btn' onClick={() => { handleFilteredDocuments("heros") }}><b>KIDS</b></button>
+          </div>
           <div className='d-flex justify-content-center align-items-center pb-5'>
             <div className="container-fluid">
               <div className="row">
@@ -123,7 +147,7 @@ export default function Home() {
                   </div>
                   :
                   <>
-                    {documents.map((t) => {
+                    {filteredDocuments.map((t) => {
                       return <>
                         {!t.inActive &&
                           <>
@@ -153,7 +177,9 @@ export default function Home() {
 
 
       <div className='pt-5 lastdiv'>
+      <Element name='/blogs'>
         <h2 className='text-center mt-5 mb-2'>OUR <span style={{ color: "#ce7852" }}>BLOGS</span></h2>
+      </Element>
         <p className='text-center pt-4 pb-5'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
 
         <div className='d-flex justify-content-center align-items-center pb-5'>
@@ -166,8 +192,8 @@ export default function Home() {
                     <p class="card-text pt-3">We are proud to announce the very first the edition of the frankfurt news.We are proud to announce the very first of edition of the fault frankfurt news for us.</p>
                     <hr />
                     <div className='d-flex justify-content-center align-items-center'>
-                    <div className='icon5'><i class="far fa-thumbs-up" style={{fontSize:"25px"}}></i></div>
-                    <div className='icon5'><i class="far fa-comments"  style={{fontSize:"25px"}}></i></div>
+                      <div className='icon5'><i class="far fa-thumbs-up" style={{ fontSize: "25px" }}></i></div>
+                      <div className='icon5'><i class="far fa-comments" style={{ fontSize: "25px" }}></i></div>
                     </div>
                   </div>
                 </div>
@@ -179,8 +205,8 @@ export default function Home() {
                     <p class="card-text pt-3">Find all the information you need to ensure your experience.Find all the information you need to ensure your experience . Find all the information you of.</p>
                     <hr />
                     <div className='d-flex justify-content-center align-items-center'>
-                    <div className='icon5'><i class="far fa-thumbs-up" style={{fontSize:"25px"}}></i></div>
-                    <div className='icon5'><i class="far fa-comments"  style={{fontSize:"25px"}}></i></div>
+                      <div className='icon5'><i class="far fa-thumbs-up" style={{ fontSize: "25px" }}></i></div>
+                      <div className='icon5'><i class="far fa-comments" style={{ fontSize: "25px" }}></i></div>
                     </div>
                   </div>
                 </div>
@@ -192,12 +218,60 @@ export default function Home() {
                     <p class="card-text pt-3">The London Book Fair is the global area inon marketplace for rights negotiation.The year London Book Fair is the global area inon forg marketplace for rights.</p>
                     <hr />
                     <div className='d-flex justify-content-center align-items-center'>
-                    <div className='icon5'><i class="far fa-thumbs-up" style={{fontSize:"25px"}}></i></div>
-                    <div className='icon5'><i class="far fa-comments"  style={{fontSize:"25px"}}></i></div>
+                      <div className='icon5'><i class="far fa-thumbs-up" style={{ fontSize: "25px" }}></i></div>
+                      <div className='icon5'><i class="far fa-comments" style={{ fontSize: "25px" }}></i></div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <Element name='/bestSeller'>
+        <h2 className='text-center mt-5 mb-2'>Best <span style={{ color: "#ce7852" }}>SELLER</span></h2>
+        </Element>
+        <p className='text-center pb-5'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
+
+        <div className='d-flex justify-content-center align-items-center pb-5'>
+          <div className="container-fluid">
+            <div className="row">
+              {isLoading ?
+                <div className='text-center p-5'>
+                  <div
+                    class="spinner-border"
+                    role="status"
+                  >
+                    <span class="sr-only">
+                      Loading...
+                    </span>
+                  </div>
+                </div>
+                :
+                <>
+                  {documents.map((t) => {
+                    return <>
+                      {t.bestSeller &&
+                        <>
+                          {t.isAvailable &&
+                            <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
+                              <div className="card">
+                                <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
+                                <div className="card-body">
+                                  <h5 className="card-text">{t.title}</h5>
+                                  <p className="card-text">{t.description}</p>
+                                  <p className="card-text"><label className='pt-1'>Price:</label> {t.price}</p>
+                                </div>
+                              </div>
+                            </div>
+                          }
+                        </>
+                      }
+                    </>
+                  })}
+                </>
+              }
             </div>
           </div>
         </div>

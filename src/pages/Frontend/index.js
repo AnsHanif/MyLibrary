@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useState , useEffect , useContext} from 'react'
+import { AuthContext } from '../../contexts/AuthContext'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Home'
 import Shops from './Shop'
@@ -9,9 +10,34 @@ import Faqs from './Faqs'
 import Contact from './Contact'
 import Header from './components/Header'
 import Footer from './components/Footer'
-export default function index() {
+export default function Index() {
+  const {classes , setclasses} = useContext(AuthContext)
+  useEffect(() => {
+    if(window.location.pathname === "/"){
+      return setclasses("roothome")
+    }
+    if(window.location.pathname === "/shops"){
+      return setclasses("rootshop")
+    }
+    if(window.location.pathname === "/books"){
+      return setclasses("root2")
+    }
+    if(window.location.pathname === "/kids"){
+      return setclasses("root2")
+    }
+    if(window.location.pathname === "/about"){
+      return setclasses("root2")
+    }
+    if(window.location.pathname === "/faqs"){
+      return setclasses("root2")
+    }
+    if(window.location.pathname === "/contact"){
+      return setclasses("root2")
+    }
+  }, [])
+  // const [classes, setclasses] = useState("")
   return (
-    <div className='root2'>
+    <div className={classes}>
     <Header />
     <main>
     <Routes>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect ,useContext} from 'react'
+import { AuthContext } from '../../../contexts/AuthContext'
 import './Home.css'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { firestore } from '../../../config/firebase'
@@ -7,7 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import image1 from '../../../assests/images/1.webp'
 import image2 from '../../../assests/images/2.webp'
 import { Element } from 'react-scroll';
+import { useNavigate } from "react-router-dom";
 export default function Home() {
+  const navigate = useNavigate();
+  const {layout2,setlayout2} = useContext(AuthContext)
   const [documents, setdocuments] = useState([])
   const [filteredDocuments, setFilteredDocuments] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +46,11 @@ export default function Home() {
     }
   }
 
+  const handleCardBtn = ()=>{
+    navigate("/shops")
+    setlayout2(true)
+  }
+
   useEffect(() => {
     readDocs()
   }, [])
@@ -68,7 +77,7 @@ export default function Home() {
         <h2 className='text-center mt-5 mb-2'>NEW <span style={{ color: "#ce7852" }}>PRODUCTS</span></h2>
         </Element>
         <p className='text-center'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
-        <p className='text-center pb-5'>These Books Are Not For Sale</p>
+        <p className='text-center pb-5'>These Books For Kids</p>
 
         <div className='d-flex justify-content-center align-items-center pb-5'>
           <div className="container-fluid">
@@ -88,11 +97,13 @@ export default function Home() {
                 <>
                   {documents.map((t) => {
                     return <>
+                    {t.category == "kids" &&
+                    <>
                       {!t.inActive &&
                         <>
-                          {!t.isAvailable &&
+                          {t.isAvailable &&
                             <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
-                              <div className="card">
+                              <div className="card cardHome">
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">
                                   <h5 className="card-text">{t.title}</h5>
@@ -104,6 +115,8 @@ export default function Home() {
                           }
                         </>
                       }
+                    </>
+                  }
                     </>
                   })}
                 </>
@@ -129,7 +142,7 @@ export default function Home() {
             <button type='button' className='btn' onClick={() => { handleFilteredDocuments("all") }}><b>ALL</b></button><span className='pt-1 text-secondary'>|</span>
             <button type='button' className='btn' onClick={() => { handleFilteredDocuments("heros") }}><b>HEROS</b></button><span className='pt-1 text-secondary'>|</span>
             <button type='button' className='btn' onClick={() => { handleFilteredDocuments("adventure") }}><b>ADVENTURE</b></button><span className='pt-1 text-secondary'>|</span>
-            <button type='button' className='btn' onClick={() => { handleFilteredDocuments("heros") }}><b>KIDS</b></button>
+            <button type='button' className='btn' onClick={() => { handleFilteredDocuments("kids") }}><b>KIDS</b></button>
           </div>
           <div className='d-flex justify-content-center align-items-center pb-5'>
             <div className="container-fluid">
@@ -153,7 +166,7 @@ export default function Home() {
                           <>
                             {t.isAvailable &&
                               <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4'>
-                                <div className="card">
+                                <div className="card cardHome" onClick={handleCardBtn}>
                                   <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                   <div className="card-body">
                                     <h5 className="card-text">{t.title}</h5>
@@ -186,7 +199,7 @@ export default function Home() {
           <div className="container-fluid">
             <div className="row text-center">
               <div className="col-12 col-md-12 col-lg-4 cards d-flex justify-content-center align-items-center pb-4">
-                <div class="card card2">
+                <div class="card cardHome card2">
                   <div class="card-body p-5">
                     <h4 class="card-title">International Activities Of The Frankfurt Book First Edition </h4>
                     <p class="card-text pt-3">We are proud to announce the very first the edition of the frankfurt news.We are proud to announce the very first of edition of the fault frankfurt news for us.</p>
@@ -199,7 +212,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="col-12 col-md-12 col-lg-4 cards d-flex justify-content-center align-items-center pb-4">
-                <div class="card card2" >
+                <div class="card cardHome card2" >
                   <div class="card-body p-5">
                     <h4 class="card-title">Reading Has A Signficant Info Number Of Benefits</h4>
                     <p class="card-text pt-3">Find all the information you need to ensure your experience.Find all the information you need to ensure your experience . Find all the information you of.</p>
@@ -212,7 +225,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="col-12 col-md-12 col-lg-4 cards d-flex justify-content-center align-items-center pb-4">
-                <div class="card card2" >
+                <div class="card cardHome card2" >
                   <div class="card-body p-5">
                     <h4 class="card-title">The London Book Fair Is To Be Packed With Exciting</h4>
                     <p class="card-text pt-3">The London Book Fair is the global area inon marketplace for rights negotiation.The year London Book Fair is the global area inon forg marketplace for rights.</p>
@@ -255,8 +268,12 @@ export default function Home() {
                       {t.bestSeller &&
                         <>
                           {t.isAvailable &&
+                          <>
+                          {!t.inActive &&
+                          <>
+                          
                             <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
-                              <div className="card">
+                              <div className="card cardHome" onClick={handleCardBtn}>
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">
                                   <h5 className="card-text">{t.title}</h5>
@@ -265,6 +282,8 @@ export default function Home() {
                                 </div>
                               </div>
                             </div>
+                            </>}
+                          </>
                           }
                         </>
                       }

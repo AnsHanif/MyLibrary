@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar'
 import Home from './Home'
 import AddNewBook from './AddNewBook'
 import Availability from './Availability'
-import Status from './Status'
+import Update from './Update'
 import Orders from './Orders'
 export default function index() {
   return (
@@ -15,7 +15,7 @@ export default function index() {
        <Route path='/' element={<Home />} />
        <Route path='/addnewbook' element={<AddNewBook />} />
        <Route path='/availability' element={<Availability />} />
-       <Route path='/status' element={<Status />} />
+       <Route path='/update/:id' element={<Update />} />
        <Route path='/orders' element={<Orders />} />
     </Routes>
     </main>

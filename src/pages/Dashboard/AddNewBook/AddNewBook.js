@@ -1,4 +1,4 @@
-import React ,{useState}from 'react';
+import React ,{useEffect, useState}from 'react';
 import { collection , addDoc } from 'firebase/firestore/lite';
 import { firestore , storage } from '../../../config/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
@@ -12,6 +12,8 @@ export default function AddNewBook() {
   const [price, setprice] = useState("")
   const [url, seturl] = useState("")
   const [category, setcategory] = useState("")
+  const [inActives, setInActive] = useState(false)
+  const [available, setavailable] = useState(false)
   const [img, setimg] = useState(null)
 
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +51,9 @@ export default function AddNewBook() {
 }
 
   const createDoc = async(downloadURL)=>{
-    let formData = {title, description, price, url,category};
+    let isAvailable = Boolean(available)
+    let inActive = Boolean(inActives)
+    let formData = {title, description, price, url,category,inActive, isAvailable};
     formData.image = downloadURL
 
     try{
@@ -77,6 +81,7 @@ export default function AddNewBook() {
       });
     }
   }
+    
   return (
     <div className='pt-5'>
         <div className='container d-flex'>
@@ -101,6 +106,10 @@ export default function AddNewBook() {
           </div>
           <div className="row p-3">
           <div className="col"><span className='text'>Image:<span className='text-white dash1'>------</span></span><br className='br1'/><input type="file" placeholder='Description' onChange={e => { setimg(e.target.files[0]) }} className='inp1'/></div>
+          </div>
+          <div className="row p-2">
+            <div className="col-12 col-md-6 p-1"><span style={{fontSize:"20px"}}>Available For Sale: </span><span><input type="radio" onClick={()=>{setavailable(true)}} style={{width:"23px"}}/></span></div>
+            <div className="col-12 col-md-6 p-1"><span style={{fontSize:"20px"}}>Status:</span> <select onChange={(e) => setInActive(e.target.value)}><option value={false}>Active</option><option value={true}>In Active</option></select> </div>
           </div>
           <div className='row p-3'>
             <div className="col">

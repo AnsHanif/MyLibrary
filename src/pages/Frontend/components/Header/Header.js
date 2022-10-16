@@ -4,9 +4,9 @@ import './Header.css'
 import logo1 from '../../../../assests/logo/logo.webp'
 import { Link } from "react-router-dom";
 export default function Header() {
-    const {classes , setclasses} = useContext(AuthContext)
+    const {classes , setclasses,layout2,setlayout2} = useContext(AuthContext)
 
-    const [layout2, setlayout2] = useState(false)
+    // const [layout2, setlayout2] = useState(false)
     const [layout, setlayout] = useState(false)
     window.addEventListener("scroll", () => {
         const scrollHeight = window.pageYOffset;

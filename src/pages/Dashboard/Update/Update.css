@@ -1,0 +1,49 @@
+
+.inp1{
+    border: none;
+    border-bottom: 1px solid black;
+    width: 70%; 
+    /* padding: 18px; */
+}
+.inp2{
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 18px;
+    /* width: 100%; */
+}
+
+.text{
+    font-size: 20px;
+    margin-left: -100px;
+}
+.container{
+    width: 80%;
+}
+.div8{
+    border: 1px solid black;
+}
+.br1{
+    display: none;
+}
+@media only screen and (max-width: 995px) {
+    .dash1{
+        display: none;
+    }
+    .br1{
+        display: block;
+    }
+}
+@media only screen and (max-width: 667px) {
+    .container{
+        padding: 0 !important;
+    }
+    .dash1{
+        display: none;
+    }
+    .br1{
+        display: block;
+    }
+}
+.btn5{
+    width: 50%;
+}

@@ -1,0 +1,36 @@
+.cardfaq{
+    width: 100% !important;
+    border-radius: 0;
+}
+.cardfaqhead{
+    background-color: #EEEEEE;
+    height: 50px !important;
+}
+.btnfaq{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.btnfaq:focus{
+    box-shadow: 0 0 0 0;
+}
+.headfaq,.iconfaq{
+    /* flex: 1 0 auto; */
+    justify-content: space-between;
+}
+@media only screen and (max-width: 835px) {
+ .headfaq{
+    font-size: 13px !important;
+ }
+}
+@media only screen and (max-width: 427px) {
+    .headfaq{
+       font-size: 11px !important;
+    }
+   }
+
+@media only screen and (max-width: 504px) {
+    .faqdiv{
+        padding: 0 !important;
+    }
+}

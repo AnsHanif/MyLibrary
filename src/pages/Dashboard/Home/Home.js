@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import "./Home.css"
-import { collection, getDocs, doc, deleteDoc, setDoc, serverTimestamp } from 'firebase/firestore/lite'
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore/lite'
 import { firestore } from '../../../config/firebase'
+import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function Home() {
@@ -54,43 +55,7 @@ export default function Home() {
     setisLoading2(false)
   };
 
-  const handleUpdate = async (todo) => {
-    let formData = {
-      title: newtitle,
-      description: newdescription,
-      price: newprice,
-      category: newcategory,
-      dateAddedInFav: serverTimestamp(),
-    };
-    try {
-      await setDoc(doc(firestore, "Books", todo.id), formData, { merge: true });
-
-      // console.log("todo updated");
-      toast.success("Todo Updated Successfully", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-
-      let newDocuments = documents.map((doc) => {
-        if (doc.id === todo.id) {
-          let data = { ...todo, ...formData };
-          return data;
-        } else {
-          return doc;
-        }
-      });
-
-      setdocuments(newDocuments);
-    } catch (e) {
-      alert("error while Updating Todo");
-      console.error(e);
-    }
-  };
+  
   return (
     <div className=''>
       <br />
@@ -115,7 +80,7 @@ export default function Home() {
                 </div>
                 :
                 <>
-                  <thead className="text-white" style={{backgroundColor:"#ce7852"}}>
+                  <thead className="text-white" style={{ backgroundColor: "#ce7852" }}>
                     <tr>
                       <th scope="col">Title</th>
                       <th scope="col">Description</th>
@@ -131,127 +96,14 @@ export default function Home() {
 
 
                         <tr>
-                          <td style={{color:"#ce7852"}}>{t.title}</td>
+                          <td style={{ color: "#ce7852" }}>{t.title}</td>
                           <td>{t.description}</td>
-                          <td style={{color:"#ce7852"}}>{t.price}</td>
+                          <td style={{ color: "#ce7852" }}>{t.price}</td>
                           <td>{t.category}</td>
                           <td className='text-center'>
-
-                            <i
-                              className="fa-regular fa-pen-to-square"
-                              // onClick={() => {
-                              //   setUpdateTodoId(t);
-                              // }}
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                            ></i>
-
-                            {/* <!-- Modal --> */}
-                            <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div className="modal-dialog" role="document">
-                                <div className="modal-content">
-                                  <div className="modal-header p-4">
-                                    <h5 className="modal-title" id="exampleModalLabel">Update Book</h5>
-                                    <button type="button" className="close btn-sm bg-dark" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true"><i className="fa-solid fa-xmark text-white"></i></span>
-                                    </button>
-                                  </div>
-                                  <div className="modal-body">
-                                    <div class="mb-3">
-                                      <label
-                                        for="exampleFormControlInput1"
-                                        class="form-label"
-                                      >
-                                        Enter New Title
-                                      </label>
-                                      <input
-                                        type="email"
-                                        class="form-control"
-                                        id="exampleFormControlInput1"
-                                        // defaultValue={
-                                        //   UpdateTodoId.title
-                                        // }
-                                        // defaultValue={t.title}
-                                        onChange={(e) => {
-                                          setNewTitle(e.target.value);
-                                        }}
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label
-                                        for="exampleFormControlTextarea1"
-                                        class="form-label"
-                                      >
-                                        Enter New Description
-                                      </label>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        id="exampleFormControlInput1"
-                                        // defaultValue={
-                                        //   UpdateTodoId.description
-                                        // }
-                                        // defaultValue={t.description}
-                                        onChange={(e) => {
-                                          setNewDescription(
-                                            e.target.value
-                                          );
-                                        }}
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label
-                                        for="exampleFormControlTextarea1"
-                                        class="form-label"
-                                      >
-                                        Enter New Price
-                                      </label>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        id="exampleFormControlInput1"
-                                        // defaultValue={
-                                        //   UpdateTodoId.description
-                                        // }
-                                        // defaultValue={t.description}
-                                        onChange={(e) => {
-                                          setNewPrice(
-                                            e.target.value
-                                          );
-                                        }}
-                                      />
-                                    </div>
-                                    <div class="mb-3">
-                                      <label
-                                        for="exampleFormControlTextarea1"
-                                        class="form-label"
-                                      >
-                                        Enter New Category
-                                      </label>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        id="exampleFormControlInput1"
-                                        // defaultValue={
-                                        //   UpdateTodoId.description
-                                        // }
-                                        // defaultValue={t.description}
-                                        onChange={(e) => {
-                                          setNewCategory(
-                                            e.target.value
-                                          );
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { handleUpdate(t) }}>Save changes</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
+                          <Link to={`/dashboard/update/${t.id}`}>
+                            <i className="fa-regular fa-pen-to-square text-dark"></i>
+                          </Link>
                           </td>
                           <td className='text-center'><button type="button" className="btn" onClick={() => { deleteDocument(t) }}>
                             {isLoading2 ?

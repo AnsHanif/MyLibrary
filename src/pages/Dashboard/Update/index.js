@@ -1,9 +1,9 @@
 import React from 'react'
-import Status from './Status'
+import Update from './Update'
 export default function index() {
   return (
     <>
-        <Status />
+        <Update />
     </>
   )
 }

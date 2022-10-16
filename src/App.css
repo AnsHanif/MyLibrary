@@ -7,48 +7,48 @@
 .roothome{
     display: flex;
     flex-direction: column;
-    min-height: 730vh;
+    min-height: 790vh;
     flex: 1 0 auto;
 }
 .rootshop{
     display: flex;
     flex-direction: column;
-    min-height: 200vh;
+    min-height: 300vh;
     flex: 1 0 auto;
 }
 @media only screen and (max-width: 1091px) {
     .roothome{
-        min-height: 750vh !important;
+        min-height: 810vh !important;
     }
   }
 @media only screen and (max-width: 991px) {
     .roothome{
-        min-height: 1150vh !important;
+        min-height: 1290vh !important;
     }
   }
 @media only screen and (max-width: 554px) {
     .roothome{
-        min-height: 1180vh !important;
+        min-height: 1350vh !important;
     }
   }
 @media only screen and (max-width: 498px) {
     .roothome{
-        min-height: 1210vh !important;
+        min-height: 1390vh !important;
     }
   }
 @media only screen and (max-width: 461px) {
     .roothome{
-        min-height: 1240vh !important;
+        min-height: 1420vh !important;
     }
   }
 @media only screen and (max-width: 446px) {
     .roothome{
-        min-height: 1260vh !important;
+        min-height: 1440vh !important;
     }
   }
 @media only screen and (max-width: 438px) {
     .roothome{
-        min-height: 1280vh !important;
+        min-height: 1460vh !important;
     }
   }
 .root3{

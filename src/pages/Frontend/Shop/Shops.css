@@ -14,3 +14,132 @@
     z-index: +1;
     text-align: center;
 }
+.sidediv{
+    flex: 1 0 auto;
+    width: 25%;
+}
+.centerdiv{
+    flex: 1 0 auto;
+    width: 70%;
+    overflow-y: scroll ;
+    height: 1750px;
+}
+.centerdiv2{
+    display: flex;
+}
+.three{
+    display: flex;
+    justify-content: right ;
+    align-items: right ;
+}
+.dropdown{
+    display: none;
+}
+@media only screen and (max-width: 590px) {
+    .centerdiv2,.three,.dropdown{
+        display: block;
+    }
+    .one,.two,.three{
+        justify-content: center !important;
+    }
+    .select{
+        display: none;
+    }
+  }
+
+.listdivflex{
+    display: flex;
+}
+.thdivnone{
+    display: none;
+}
+
+.listdivnone{
+    display: none;
+}
+.thdivflex{
+    display: block;
+}
+
+@media only screen and (max-width: 590px) {
+    .listdivflex{
+        display: block;
+    }
+  }
+.shopbtn:hover{
+    color: #ce7852 ;
+}
+@media only screen and (max-width: 700px) {
+    .shopdes{
+        display: none;
+    }
+}
+@media only screen and (max-width: 590px) {
+    .shoptitle,.shopstars,.shopprice{
+        padding-right: 30px !important;
+        text-align: center;
+    }
+    .shopbtns{
+        display: block !important;
+    }
+    .Cartbtn{
+        width: 80%;
+        /* justify-content: center !important; */
+        /* align-items: center !important; */
+        /* padding-right: 40px !important; */
+        /* margin: auto; */
+        margin-right: 50px;
+    }
+    .CartIcon{
+        display: none;
+    }
+    .CardImg{
+        width: 80% !important;
+    }
+}
+.inpshop{
+    width: 100%;
+}
+.Tagbtn{
+    background-color: #e9ecef;
+    border-radius: 0px;
+    height: 45px;
+}
+
+.Tagbtn:hover{
+    background-color: #333333;
+    color: white;
+}
+.sideimg{
+    background-image: url("https://htmldemo.net/boighor/boighor/images/others/banner_left.jpg");
+    height: 350px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.one,.two,.three{
+    flex: 1 0 auto;
+}
+.idiv{
+    flex: 0.1 0 auto
+}
+@media only screen and (max-width: 890px) {
+    .sidediv{
+        display: none;
+    }
+  }
+
+.Cartbtn{
+    background-color: black;
+    border-radius: 0px;
+}
+.Cartbtn:hover{
+    background-color: red;
+}
+.Cartbtn2:hover{
+    background-color: red;
+}
+.CardImg{
+    width: 250px;
+}

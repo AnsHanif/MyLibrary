@@ -72,6 +72,7 @@ export default function Availability() {
   };
 
   const removeFromAvailable = async (t) => {
+    setLoader1Checker(t.id)
     setLoader1(true)
     const delCheck = doc(firestore, "Books", t.id);
     await updateDoc(delCheck, {
@@ -243,7 +244,7 @@ export default function Availability() {
                                     }
                                   </>
                                   :
-                                  <>
+                                  <>  
                                     <i class="fas fa-check-circle text-success" onClick={() => { removeFromAvailable(t) }}></i> <span style={{ fontSize: "13px" }}>This Book is Available for Sale</span>
                                   </>
                                 }

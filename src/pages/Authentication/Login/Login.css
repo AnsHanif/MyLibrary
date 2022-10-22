@@ -1,0 +1,55 @@
+.loginpage{
+    background-image: url("https://d15fwz9jg1iq5f.cloudfront.net/wp-content/uploads/2017/02/21163010/05-Skywalker.png");
+    background-size: cover;
+    height: 100vh;
+}
+.loginContainer{
+    min-height: 90vh;
+}
+.loginCard{
+    background-color: rgba(0, 0, 0, 0.582);
+    height: 33rem;
+    width: 23rem;
+}
+.backbtn{
+    background-color: white
+}
+.backicon{
+    color: black;
+}
+@media only screen and (max-width: 390px) {
+    .loginCard{
+        height: 32rem;
+        width: 21rem;
+    }
+    .backbtn{
+        background-color: rgba(0, 0, 0, 0.582)
+    }
+    .backicon{
+        color:white
+    }
+}
+.spanemail{
+    color:rgba(0, 0, 0, 0);
+}
+.loginInp{
+    width: 60%;
+}
+.loginEmail{
+    font-size: 25px;
+}
+.loginbtn{
+    width: 88%;
+    /* background-color: #333333; */
+    border: 1px solid white;
+}
+
+.google:hover{
+    cursor: pointer;
+}
+.fb:hover{
+    cursor: pointer;
+}
+.twitter:hover{
+    cursor: pointer;
+}

@@ -14,6 +14,7 @@ export default function Home() {
   const {layout2,setlayout2} = useContext(AuthContext)
   const [documents, setdocuments] = useState([])
   const [filteredDocuments, setFilteredDocuments] = useState([])
+  // filteredDocuments.length = 8
   const [isLoading, setIsLoading] = useState(true);
 
   const collectionName = "Books";
@@ -50,6 +51,8 @@ export default function Home() {
     navigate("/shops")
     setlayout2(true)
   }
+
+
 
   useEffect(() => {
     readDocs()

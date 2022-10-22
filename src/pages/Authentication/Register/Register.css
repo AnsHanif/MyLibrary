@@ -1,0 +1,33 @@
+.registerpage{
+    background-image: url("https://d15fwz9jg1iq5f.cloudfront.net/wp-content/uploads/2017/02/21163010/05-Skywalker.png");
+    background-size: cover;
+    height: 100vh;
+}
+.registerContainer{
+    min-height: 90vh;
+}
+.registerCard{
+    background-color: rgba(0, 0, 0, 0.582);
+    height: 30rem;
+    width: 23rem;
+}
+@media only screen and (max-width: 390px) {
+    .registerCard{
+        height: 28rem;
+        width: 21rem;
+    }
+}
+.spanemail{
+    color:rgba(0, 0, 0, 0);
+}
+.registerInp{
+    width: 60%;
+}
+.registerEmail{
+    font-size: 25px;
+}
+.registerbtn{
+    width: 88%;
+    /* background-color: #333333; */
+    border: 1px solid white;
+}

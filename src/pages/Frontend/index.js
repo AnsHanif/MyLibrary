@@ -1,4 +1,4 @@
-import React,{useState , useEffect , useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Home'
@@ -11,47 +11,47 @@ import Contact from './Contact'
 import Header from './components/Header'
 import Footer from './components/Footer'
 export default function Index() {
-  const {classes , setclasses} = useContext(AuthContext)
+  const { classes, setclasses } = useContext(AuthContext)
   useEffect(() => {
-    if(window.location.pathname === "/"){
+    if (window.location.pathname === "/") {
       return setclasses("roothome")
     }
-    if(window.location.pathname === "/shops"){
+    if (window.location.pathname === "/shops") {
       return setclasses("rootshop")
     }
-    if(window.location.pathname === "/books"){
+    if (window.location.pathname === "/books") {
       return setclasses("root2")
     }
-    if(window.location.pathname === "/kids"){
+    if (window.location.pathname === "/kids") {
       return setclasses("root2")
     }
-    if(window.location.pathname === "/about"){
+    if (window.location.pathname === "/about") {
       return setclasses("root2")
     }
-    if(window.location.pathname === "/faqs"){
+    if (window.location.pathname === "/faqs") {
       return setclasses("root2")
     }
-    if(window.location.pathname === "/contact"){
+    if (window.location.pathname === "/contact") {
       return setclasses("root2")
     }
   }, [])
   // const [classes, setclasses] = useState("")
   return (
     <div className={classes}>
-    <Header />
-    <main>
-    <Routes>
-       <Route path='/' element={<Home />} />
-       <Route path='/shops' element={<Shops />} />
-       <Route path='/books' element={<Books />} />
-       <Route path='/kids' element={<Kids />} />
-       <Route path='/about' element={<About />} />
-       <Route path='/faqs' element={<Faqs />} />
-       <Route path='/contact' element={<Contact />} />
+      <Header />
+      <main>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/shops' element={<Shops />} />
+          <Route path='/books' element={<Books />} />
+          <Route path='/kids' element={<Kids />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/faqs' element={<Faqs />} />
+          <Route path='/contact' element={<Contact />} />
 
-    </Routes>
-    </main>
-    <Footer />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   )
 }

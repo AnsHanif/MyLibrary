@@ -18,14 +18,23 @@
     /* flex: 1 0 auto; */
     justify-content: space-between;
 }
+.bodyfaq{
+    font-size: 13px;
+}
 @media only screen and (max-width: 835px) {
  .headfaq{
     font-size: 13px !important;
+ }
+ .bodyfaq{
+    font-size: 11px !important;
  }
 }
 @media only screen and (max-width: 427px) {
     .headfaq{
        font-size: 11px !important;
+    }
+    .bodyfaq{
+        font-size: 10px !important;
     }
    }
 

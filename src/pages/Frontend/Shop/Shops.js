@@ -1,18 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import './Shops.css';
-import { collection, getDocs } from 'firebase/firestore/lite'
+import { AuthContext } from '../../../contexts/AuthContext'
+import { AuthContext2 } from '../../../contexts/AuthContext2';
+import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { firestore } from '../../../config/firebase'
 import image1 from '../../../assests/images/3.webp'
-import image2 from "../../../assests/images/10.webp"
+import audio1 from '../../../assests/audios/ZfJWah.mp3'
 import { FaTh } from 'react-icons/fa';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Shops() {
+  const { setshoppingCart } = useContext(AuthContext)
+  const { isAuthenticated, setisAuthenticated, user } = useContext(AuthContext2)
   const [shopbtns, setshopbtns] = useState(true)
+  const audioPlayer = useRef(null)
 
   const [inpSliderValue, setInpSliderValue] = useState(400)
   const [documents, setdocuments] = useState([])
   const [filteredDocuments, setFilteredDocuments] = useState([])
+  const [btnDocument, setbtnDocument] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+  const [cartbtn, setcartbtn] = useState(true)
+  const [flag, setflag] = useState(false)
 
   const collectionName = "Books";
   const docsCollectionRef = collection(firestore, collectionName)
@@ -44,6 +54,42 @@ export default function Shops() {
     }
   }
 
+  const collectionName2 = 'Orders'
+  const docCollectionRef2 = collection(firestore, collectionName2)
+  const handleCart = async (t) => {
+    console.log(t)
+    setcartbtn(false)
+    setshoppingCart(true)
+    audioPlayer.current.play()
+
+    let quantity = 1;
+    var Name = t.title;
+    var Price = t.price;
+    var Order = {
+      BookName: Name,
+      Price: Price,
+      Quantity: quantity,
+    }
+    var storageName = localStorage.getItem('ORDERS');
+    if (storageName == null) {
+      storageName = [];
+    }
+    else {
+      storageName = JSON.parse(storageName);
+    }
+    storageName.push(Order);
+    localStorage.setItem("ORDERS", JSON.stringify(storageName))
+    setflag(true)
+  }
+
+
+  var storageName = JSON.parse(localStorage.getItem('ORDERS'));
+  if (storageName == null) {
+    storageName = [];
+  }
+  const RemoveCart = () => {
+    setcartbtn(true)
+  }
 
   useEffect(() => {
     readDocs()
@@ -110,7 +156,7 @@ export default function Shops() {
             </div>
           </div>
         </div>
-        <div className='centerdiv border'>
+        <div className='centerdiv '>
           <hr className='bg-secondry' />
           <div className='centerdiv2 pl-2 pr-2'>
             <div className='one d-flex'><div className={`idiv border text-center ${!shopbtns ? "text-primary" : "text-dark"}`} onClick={() => { setshopbtns(false) }}>{<FaTh size={22} />}</div><span className='text-white'>--</span><div className={`idiv border text-center ${shopbtns ? "text-primary" : "text-dark"}`} onClick={() => { setshopbtns(true) }} style={{ paddingTop: "3px" }} ><i className="fas fa-list" style={{ fontSize: "22px" }} ></i></div></div>
@@ -160,8 +206,28 @@ export default function Shops() {
                               </div>
                               <p className='pb-3 shopdes'>{t.description}</p>
                               <div className=' d-flex shopbtns'>
-                                <button className='btn btn-lg text-white Cartbtn'>Add To Cart</button>
-                                <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='far fa-heart border p-2' style={{ borderRadius: "50%", }}></i></span>
+
+
+                                {
+                                  !flag ?
+                                    (
+
+                                      <button className='btn btn-lg text-white Cartbtn' onClick={() => { handleCart(t) }}>Add To Cart</button>
+                                    )
+                                    :
+                                    (
+
+                                      <button className='btn btn-lg text-white Cartbtn bg-danger' onClick={RemoveCart}>Remove From Cart</button>
+                                    )
+                                }
+
+
+
+
+
+
+
+                                <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='far fa-heart border p-2' style={{ borderRadius: "50%" }}></i></span>
                               </div>
                             </div>
                           </div>
@@ -191,7 +257,7 @@ export default function Shops() {
                                     <h5 className="card-text">{t.title}</h5>
                                     <p className="card-text">{t.description}</p>
                                     <p className="card-text"><label className='pt-1'>Price:</label> {t.price}</p>
-                                    <button className='btn btn-dark Cartbtn2'>Add To Cart</button>
+                                    <button className='btn btn-dark Cartbtn2' onClick={() => { handleCart(t) }}>Add To Cart</button>
                                   </div>
                                 </div>
                               </div>
@@ -207,6 +273,41 @@ export default function Shops() {
           </div>
         </div>
       </div>
+      <audio src={audio1} ref={audioPlayer} />
     </div>
   )
 }
+
+// var Name = t.title;
+// var Price = t.price;
+// var Quantity = 1;
+// var addCart = true;
+// let formData = {Name,Price,Quantity,addCart, useruid: user.uid,}
+
+// try{
+//   const docRef = await addDoc(docCollectionRef2,formData);
+//   console.log('ID',docRef.id);
+//   toast.success('Todo Added successfuly', {
+//     position: "top-right",
+//     autoClose: 5000,
+//     hideProgressBar: false,
+//     closeOnClick: true,
+//     pauseOnHover: true,
+//     draggable: true,
+//     progress: undefined,
+//   });
+//   // setshowHomePage(true)
+// }catch(e){
+//   toast.error('Error', e,{
+//     position: "top-right",
+//     autoClose: 5000,
+//     hideProgressBar: false,
+//     closeOnClick: true,
+//     pauseOnHover: true,
+//     draggable: true,
+//     progress: undefined,
+//   });
+// }
+// finally{
+//   // setIsLoading(false)
+// }

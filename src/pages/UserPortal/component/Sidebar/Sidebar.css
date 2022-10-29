@@ -1,0 +1,22 @@
+.imgdiv2{
+    height: 80px;
+    width: 80px;
+    /* border-radius: 50px; */
+}
+.img2{
+    border-radius: 50%;
+    height: 80px;
+    width: 60px;
+}
+.mobileSidebar{
+    display: none;
+}
+@media only screen and (max-width: 667px) {
+    .sidebar{
+        display: none;
+    }
+    .mobileSidebar{
+        display: block;
+        background-color: #2b2b2b;
+    }
+}

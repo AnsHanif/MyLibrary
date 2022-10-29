@@ -83,7 +83,7 @@ export default function Home() {
                   <thead className="text-white" style={{ backgroundColor: "#ce7852" }}>
                     <tr>
                       <th scope="col">Title</th>
-                      <th scope="col">Description</th>
+                      <th scope="col" className='des'>Description</th>
                       <th scope="col">Price</th>
                       <th scope="col">Category</th>
                       <th scope='col'>Update</th>
@@ -97,7 +97,7 @@ export default function Home() {
 
                         <tr>
                           <td style={{ color: "#ce7852" }}>{t.title}</td>
-                          <td>{t.description}</td>
+                          <td className='des'>{t.description}</td>
                           <td style={{ color: "#ce7852" }}>{t.price}</td>
                           <td>{t.category}</td>
                           <td className='text-center'>

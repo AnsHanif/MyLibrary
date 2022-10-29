@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { auth } from '../../../config/firebase'
-import { AuthContext } from '../../../contexts/AuthContext';
+import { AuthContext2 } from '../../../contexts/AuthContext2';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom'
@@ -8,8 +8,8 @@ import "./Register.css"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Register() {
+  const { isAuthenticated, setisAuthenticated } = useContext(AuthContext2)
   const [isLoading, setisLoading] = useState(false)
-  const { user } = useContext(AuthContext)
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
   const [name, setname] = useState("")
@@ -43,7 +43,7 @@ export default function Register() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential;
-        navigate("/userProfile")
+        navigate("/userPortal")
         toast.success("You are Registered Successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -53,6 +53,7 @@ export default function Register() {
           draggable: true,
           progress: undefined,
         });
+        setisAuthenticated(true)
       })
       .catch((error) => {
         console.log(error)

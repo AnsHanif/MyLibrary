@@ -56,6 +56,11 @@
     /* flex-direction: column; */
     min-height: 100vh;
 }
+.rootUser{
+    display: flex;
+    /* flex-direction: column; */
+    min-height: 100vh;
+}
 *{
     margin: 0;
     padding: 0;
@@ -68,7 +73,13 @@ main{
     flex: 1 0 auto;
     width: 80%;
 }
+.main3{
+    flex: 1 0 auto;
+    width: 80%;
+}
 .sidediv{
     width: 20%;
 }
-
+.sidediv2{
+    width: 20%;
+}

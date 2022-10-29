@@ -22,9 +22,63 @@ export default function AddNewBook() {
 
   const navigate = useNavigate();
   const uploadImage = (e) => {
-    setIsLoading(true)
     e.preventDefault()
-    if (!img) return;
+    if (!title) {
+      return toast.error('Please Enter the title', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!description) {
+      return toast.error('Please Enter the description', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!price) {
+      return toast.error('Please Enter the price', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!category) {
+      return toast.error('Please Enter the category', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!img){
+      return toast.error('Please Select the Image', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    setIsLoading(true)
 
     // console.log(img)
 

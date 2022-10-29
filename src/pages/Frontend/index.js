@@ -8,6 +8,7 @@ import Kids from './Kids'
 import About from './About'
 import Faqs from './Faqs'
 import Contact from './Contact'
+import CheckOut from './CheckOut'
 import Header from './components/Header'
 import Footer from './components/Footer'
 export default function Index() {
@@ -19,21 +20,24 @@ export default function Index() {
     if (window.location.pathname === "/shops") {
       return setclasses("rootshop")
     }
-    if (window.location.pathname === "/books") {
-      return setclasses("root2")
-    }
-    if (window.location.pathname === "/kids") {
-      return setclasses("root2")
-    }
-    if (window.location.pathname === "/about") {
-      return setclasses("root2")
-    }
-    if (window.location.pathname === "/faqs") {
-      return setclasses("root2")
-    }
-    if (window.location.pathname === "/contact") {
-      return setclasses("root2")
-    }
+    // if (window.location.pathname === "/books") {
+    //   return setclasses("root2")
+    // }
+    // if (window.location.pathname === "/kids") {
+    //   return setclasses("root2")
+    // }
+    // if (window.location.pathname === "/about") {
+    //   return setclasses("root2")
+    // }
+    // if (window.location.pathname === "/faqs") {
+    //   return setclasses("root2")
+    // }
+    // if (window.location.pathname === "/contact") {
+    //   return setclasses("root2")
+    // }
+    // if (window.location.pathname === "/checkout") {
+    //   return setclasses("root2")
+    // }
   }, [])
   // const [classes, setclasses] = useState("")
   return (
@@ -48,7 +52,7 @@ export default function Index() {
           <Route path='/about' element={<About />} />
           <Route path='/faqs' element={<Faqs />} />
           <Route path='/contact' element={<Contact />} />
-
+          <Route path='/checkout' element={<CheckOut />} />
         </Routes>
       </main>
       <Footer />

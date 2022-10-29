@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../../../../contexts/AuthContext';
+import { AuthContext2 } from '../../../../contexts/AuthContext2';
 import './Header.css'
 import logo1 from '../../../../assests/logo/logo.webp'
 import { Link } from "react-router-dom";
 export default function Header() {
-  const { classes, setclasses, layout2, setlayout2 } = useContext(AuthContext)
+  const { classes, setclasses, layout2, setlayout2,shoppingCart } = useContext(AuthContext)
+  // console.log(shoppingCart)
+  const { isAuthenticated } = useContext(AuthContext2)
 
   // const [layout2, setlayout2] = useState(false)
   const [layout, setlayout] = useState(false)
@@ -46,6 +49,9 @@ export default function Header() {
       return setlayout2(true)
     }
     if (window.location.pathname === "/contact") {
+      return setlayout2(true)
+    }
+    if (window.location.pathname === "/checkout") {
       return setlayout2(true)
     }
   }, [])
@@ -117,7 +123,7 @@ export default function Header() {
           <div className="icondiv">
             <h5 className='icon1'><i className={`fas fa-search mr-5 ${layout ? "text-white" : "text-secondary"}`} data-toggle="modal" data-target="#exampleModal"></i></h5>
             <h5 className='icon1'><i className={`far fa-heart mr-5 ${layout ? "text-white" : "text-secondary"}`}></i></h5>
-            <h5 className='icon1'><i className={`fas fa-shopping-cart mr-5 ${layout ? "text-white" : "text-secondary"}`}></i></h5>
+            <Link to={!isAuthenticated? "/login" : "/checkout"}><h5 className='icon1'><i className={`fas fa-shopping-cart mr-5 ${shoppingCart? "text-danger" : layout ? "text-white" : "text-secondary"}`} onClick={handleNavLink}></i></h5></Link>
             <Link to="/login"><h5 className='icon1'><i className={`fas fa-user mr-5 ${layout ? "text-white" : "text-secondary"}`}></i></h5></Link>
           </div>
         </div>

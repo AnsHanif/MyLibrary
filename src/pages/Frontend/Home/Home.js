@@ -14,7 +14,8 @@ export default function Home() {
   const {layout2,setlayout2} = useContext(AuthContext)
   const [documents, setdocuments] = useState([])
   const [filteredDocuments, setFilteredDocuments] = useState([])
-  // filteredDocuments.length = 8
+  const newArray = filteredDocuments.slice(0, 8);
+  // console.log("New Array",newArray)
   const [isLoading, setIsLoading] = useState(true);
 
   const collectionName = "Books";
@@ -163,7 +164,7 @@ export default function Home() {
                   </div>
                   :
                   <>
-                    {filteredDocuments.map((t) => {
+                    {newArray.map((t) => {
                       return <>
                         {!t.inActive &&
                           <>

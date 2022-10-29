@@ -1,13 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { auth } from '../../../config/firebase'
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider } from 'firebase/auth'
-import { AuthContext } from '../../../contexts/AuthContext';
+import { signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider,FacebookAuthProvider } from 'firebase/auth'
+import { AuthContext2 } from '../../../contexts/AuthContext2';
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from 'react-router-dom'
 import "./Login.css"
 export default function Login() {
+  const { isAuthenticated, setisAuthenticated } = useContext(AuthContext2)
+
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [isLoading, setisLoading] = useState(false)
@@ -63,7 +66,8 @@ export default function Login() {
             draggable: true,
             progress: undefined,
           });
-          navigate("/userProfile")
+          navigate("/userPortal")
+          setisAuthenticated(true)
         }
       })
       .catch((error) => {
@@ -97,9 +101,32 @@ export default function Login() {
         progress: undefined,
       });
       navigate("/userProfile")
+      setisAuthenticated(true)
     })
     .catch((err)=>{
       console.log(err)
+    })
+  }
+
+  const handlefb = ()=>{
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth , provider)
+    .then((result)=>{
+      console.log(result)
+      navigate("/userProfile")
+      toast.success('Login Through FaceBook Successfully', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setisAuthenticated(true)
+    })
+    .catch((error)=>{
+        console.log(error.message)
     })
   }
   return (
@@ -126,7 +153,7 @@ export default function Login() {
               </button></div>
               <p className='card-text text-right pr-4'><Link to='/register' style={{ color: "white", textDecoration: 'none' }} >Don't Have An Account?</Link></p>
               <p className='card-text text-center pt-5'>
-                <i class="fa fa-facebook-square text-white fb" style={{ fontSize: "30px", paddingRight: '50px' }}></i>
+                <i class="fa fa-facebook-square text-white fb" onClick={handlefb} style={{ fontSize: "30px", paddingRight: '50px' }}></i>
                 <i class="fa fa-twitter-square text-white twitter" style={{ fontSize: "30px", paddingRight: '50px' }}></i>
                 <i class="fa fa-google text-white google" onClick={handleGoogle} style={{ fontSize: "30px" }}></i>
               </p>

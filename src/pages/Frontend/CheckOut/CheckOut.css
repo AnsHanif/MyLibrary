@@ -1,0 +1,35 @@
+.COleft{
+    width: 50%;
+}
+.COright{
+    width: 50%;
+    /* background-color: #f8f9fa; */
+    /* height: 50%; */
+}
+.orderdiv{
+    overflow-y: scroll ;
+}
+.COinp{
+    height: 40px;
+    width: 100%;
+}
+.Pdiv{
+    width: 50%;
+}
+.tdiv{
+    width: 50%;
+}
+.CMain{
+    display: flex;
+}
+@media only screen and (max-width: 611px) {
+    .CMain{
+        display: block;
+    }
+    .COleft{
+        width: 100%;
+    }
+    .COright{
+        width: 100%;
+    }
+}

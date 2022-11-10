@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import "./Sidebar.css";
-import { auth } from '../../../../config/firebase'
+import { auth, firestore} from '../../../../config/firebase'
+import { AuthContext2 } from '../../../../contexts/AuthContext2';
 import { signOut } from 'firebase/auth'
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -11,8 +12,31 @@ import {  CgProfile,CgHeart} from 'react-icons/cg';
 import Profile from '../../../../assests/profile/dummy-Image.PNG'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore/lite';
+
 export default function Sidebar() {
+  const { user } = useContext(AuthContext2)
   const [isLoading, setisLoading] = useState(false)
+  const [isLoading2, setisLoading2] = useState(true)
+  const [documents, setdocuments] = useState([])
+
+  const collectionName = 'Profile'
+  const docCollectionRef = collection(firestore, collectionName)
+  const readDocs = async () => {
+    let array = [];
+    const q = query(docCollectionRef, where("uid", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      array.push({ ...doc.data(), id: doc.id });
+    });
+    setdocuments(array);
+    setisLoading2(false)
+    console.log("array", array)
+  };
+ 
+
+
   const navigate = useNavigate();
   const logoutUser = (e) => {
     setisLoading(true)
@@ -44,16 +68,29 @@ export default function Sidebar() {
         setisLoading(false)
       })
   }
+
+  useEffect(() => {
+    readDocs();
+  }, [user]);
   return (
     <>
       <div className="sidebar">
         <ProSidebar>
           <SidebarHeader>
             <div className='text-center p-4'>
-              <div className='imgdiv2 m-auto'>
-                <img className="w-100 img2" src={Profile} alt="First slide" />
-              </div>
-              <h2 className='p-1'>....</h2>
+            {isLoading2 ? <><p className='p-5'>Loading...</p></>
+          : 
+          <>
+          {documents.map((t)=>{
+            return <>
+            <div className='imgdiv2 m-auto'>
+              <img className="w-100 img2" src={t.image} alt="First slide" />
+            </div>
+            <h2 className='p-1 pt-2'>{t.name}</h2>
+            </>
+          })}
+          </> 
+          }
             </div>
           </SidebarHeader>
           <SidebarContent>

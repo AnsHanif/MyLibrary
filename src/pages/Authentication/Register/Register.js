@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { auth } from '../../../config/firebase'
+import { auth, firestore } from '../../../config/firebase'
 import { AuthContext2 } from '../../../contexts/AuthContext2';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import "./Register.css"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setDoc , doc } from 'firebase/firestore/lite';
 export default function Register() {
   const { isAuthenticated, setisAuthenticated } = useContext(AuthContext2)
   const [isLoading, setisLoading] = useState(false)
@@ -15,7 +16,19 @@ export default function Register() {
   const [name, setname] = useState("")
   const navigate = useNavigate();
 
+  var img = "https://www.yournewfoundation.com/wp-content/uploads/2018/09/Dummy-image.jpg"
   const registerUser = (e) => {
+    if (!name) {
+      return toast.error('Please Enter the Password', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     if (!email) {
       return toast.error('Please Enter the Email', {
         position: "top-right",
@@ -41,8 +54,17 @@ export default function Register() {
     e.preventDefault()
     setisLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential;
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        await setDoc (doc(firestore , "Profile" , user.uid),{
+          name: name,
+          image:img,
+          uid: user.uid
+        }).then(()=>{
+          console.log("create document")
+        }).catch((e)=>{
+          console.log(e)
+        })
         navigate("/userPortal")
         toast.success("You are Registered Successfully", {
           position: "top-right",
@@ -79,6 +101,7 @@ export default function Register() {
           <div className="col">
             <div className='card registerCard'>
               <h1 className='text-center text-white p-5'>Register</h1>
+              <div className='text-center pt-3'><label className='text-white registerEmail'>Name</label><span className='spanemail'>______</span><input className='registerInp' onChange={e => { setname(e.target.value) }} type="text" /></div>
               <div className='text-center pt-3'><label className='text-white registerEmail'>Email</label><span className='spanemail'>_______</span><input className='registerInp' onChange={e => { setemail(e.target.value) }} type="text" /></div>
               <div className='text-center pt-3'><label className='text-white registerEmail'>Password</label> <input className='registerInp' onChange={e => { setpassword(e.target.value) }} type="text" /></div>
 
@@ -93,7 +116,7 @@ export default function Register() {
                   "Register"
                 }
               </button></div>
-              <p className='card-text text-right pr-4'><Link to='/login' style={{ color: "white", textDecoration: 'none' }} >Already Have An Account?</Link></p>
+              <p className='card-text text-right pr-4 pt-2'><Link to='/login' style={{ color: "white", textDecoration: 'none' }} >Already Have An Account?</Link></p>
             </div>
           </div>
         </div>

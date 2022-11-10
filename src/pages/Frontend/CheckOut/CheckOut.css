@@ -21,8 +21,9 @@
 }
 .CMain{
     display: flex;
+    padding: 48px;
 }
-@media only screen and (max-width: 611px) {
+@media only screen and (max-width: 1000px) {
     .CMain{
         display: block;
     }
@@ -31,5 +32,11 @@
     }
     .COright{
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 547px) {
+    .CMain{
+        padding: 10px !important;
     }
 }

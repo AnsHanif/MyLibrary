@@ -59,9 +59,9 @@ export default function About() {
         <h3 className='pt-5 head3'><b>MEET OUR TEAM OF EXPERTS</b></h3>
         <p style={{ color: "#333333" }}>the right people for your project</p>
       </div>
-      <div className=' imgMaindiv p-5'>
-        <div className='imgdiv3'>
-          <div className='imgMaindiv2'>
+      <div className=' abtImgdiv p-5'>
+        <div className='abtImgdiv2'>
+          <div className='abtImgdiv3'>
             <img className="d-block w-100" src={image2} alt="First slide" height="420" />
             <h5 className='text-center pt-3'>Muhammad Anas</h5>
             <p className='text-center text-secondary' style={{ fontSize: "13px" }}>Juniour Developer</p>
@@ -81,8 +81,8 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className='imgdiv3'>
-          <div className='imgMaindiv2'>
+        <div className='abtImgdiv2'>
+          <div className='abtImgdiv3'>
             <img className="d-block w-100" src={image3} alt="First slide" height="420" />
             <h5 className='text-center pt-3'>Muhammad Umair Ahmad</h5>
             <p className='text-center text-secondary' style={{ fontSize: "13px" }}>Teacher / Head OF Department</p>

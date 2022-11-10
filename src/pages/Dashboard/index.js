@@ -9,16 +9,16 @@ import Orders from './Orders'
 export default function index() {
   return (
     <div className='root3'>
-    <Sidebar className="sidediv" />
-    <main className='main2'>
-    <Routes>
-       <Route path='/' element={<Home />} />
-       <Route path='/addnewbook' element={<AddNewBook />} />
-       <Route path='/availability' element={<Availability />} />
-       <Route path='/update/:id' element={<Update />} />
-       <Route path='/orders' element={<Orders />} />
-    </Routes>
-    </main>
+      <Sidebar className="sidediv" />
+      <main className='main2'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/addnewbook' element={<AddNewBook />} />
+          <Route path='/availability' element={<Availability />} />
+          <Route path='/update/:id' element={<Update />} />
+          <Route path='/orders' element={<Orders />} />
+        </Routes>
+      </main>
     </div>
   )
 }

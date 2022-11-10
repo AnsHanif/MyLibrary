@@ -75,7 +75,7 @@ export default function Kids() {
                               <div className="card cardHome" onClick={handleCardBtn}>
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">
-                                  <h5 className="card-text">{t.title}</h5>
+                                  <h5 className="card-text" style={{height:"35px"}}>{t.title}</h5>
                                   <p className="card-text">{t.description}</p>
                                   <p className="card-text"><label className='pt-1'>Price:</label> {t.price}</p>
                                 </div>

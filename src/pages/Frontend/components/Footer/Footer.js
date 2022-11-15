@@ -13,10 +13,10 @@ export default function Footer() {
       </div>
       <p className='pb-4'>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
       <div className='pb-4'>
-        <i class="fab fa-facebook" style={{ fontSize: "30px", color: '#1877f2', paddingRight: '50px' }}></i>
-        <i class="fa fa-twitter-square" style={{ fontSize: "30px", color: '#1da1f2', paddingRight: '50px' }}></i>
-        <i class="fa fa-google" style={{ fontSize: "30px", color: '#dd4b39', paddingRight: '50px' }}></i>
-        <i class="fab fa-youtube" style={{ fontSize: "30px", color: '#ff0000' }}></i>
+      <a href="https://www.facebook.com/profile.php?id=100008130587254" target="_blank"><i class="fab fa-facebook" style={{ fontSize: "30px", color: '#1877f2', paddingRight: '50px' }}></i></a>
+        <a href="https://www.twitter.com/@AnsGujjar_01" target="_blank" ><i class="fa fa-twitter-square" style={{ fontSize: "30px", color: '#1da1f2', paddingRight: '50px' }}></i></a>
+        <a href="https://ansgujjar393@gmail.com" target="_blank"><i class="fa fa-google" style={{ fontSize: "30px", color: '#dd4b39', paddingRight: '50px' }}></i></a>
+        <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube" style={{ fontSize: "30px", color: '#ff0000' }}></i></a>
       </div>
       <div className='pb-5 footerdiv pt-5'>
         <div className='footdiv'> <button className='foottext btn' onClick={() => {

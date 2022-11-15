@@ -1,8 +1,33 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './Contact.css'
+import emailjs from '@emailjs/browser';
 import image1 from '../../../assests/images/8.webp'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Contact() {
+  const form = useRef();
+const sendEmail = (e)=>{
+  e.preventDefault();
+
+  emailjs.sendForm('service_cm2bcc2', 'template_u29n0xq',  form.current, 'I85F793TgDXSv7m1u')
+    .then((result) => {
+        console.log(result.text);
+        toast.success("Your Email is Successfully sended to Admin & he will Reply You Soon", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+    }, (error) => {
+        console.log(error.text);
+    });
+ e.target.reset() 
+}
+
   return (
     <div>
       <div><img className="d-block w-100" src={image1} alt="First slide" height="453" /></div>
@@ -17,27 +42,27 @@ export default function Contact() {
             <h4><b>GET IN TOUCH</b></h4>
             <p className="text-secondary">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
 
-            <div>
+            <form ref={form} onSubmit={sendEmail}>
               <div className="container-fluid">
                 <div className="row pt-4">
-                  <div className="col-12 col-md-6 pt-1"><input className='contactInp' placeholder='Name *' type="text" /></div>
-                  <div className="col-12 col-md-6 pt-1 contactemailInp"><input className='contactInp' placeholder='Email *' type="text" /></div>
+                  <div className="col-12 col-md-6 pt-1"><input className='contactInp' placeholder='Name *' type="text" name='name' /></div>
+                  <div className="col-12 col-md-6 pt-1 contactemailInp"><input className='contactInp' placeholder='Email *' type="text" name='user_email'/></div>
                 </div>
                 <div className="row pt-5">
-                  <div className="col"><input className='contactInp' placeholder='Subject *' /></div>
+                  <div className="col"><input className='contactInp' placeholder='Subject *' name='subject'/></div>
                 </div>
                 <div className="row pt-4">
                   <div className="col pt-3">
-                    <textarea className='contactInp2' placeholder='Type Your Message Here' />
+                    <textarea className='contactInp2' placeholder='Type Your Message Here' name='message'/>
                   </div>
                 </div>
                 <div className="row pt-4">
                   <div className="col">
-                    <button className='btn p-2 contactbtn'><b className='text-secondary' style={{ fontSize: "13px" }}>SEND EMAIL</b></button>
+                    <button className='btn p-2 contactbtn' type='submit'><b className='text-secondary btncolor' style={{ fontSize: "13px" }}>SEND EMAIL</b></button>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
 
 

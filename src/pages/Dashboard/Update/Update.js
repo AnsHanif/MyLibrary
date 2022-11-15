@@ -52,9 +52,9 @@ const [documents, setdocuments] = useState([])
       await setDoc(doc(firestore, "Books", todo.id), formData, { merge: true });
 
       // console.log("todo updated");
-      toast.success("Todo Updated Successfully", {
+      toast.success("Book Updated Successfully", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

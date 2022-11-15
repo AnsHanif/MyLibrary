@@ -43,7 +43,7 @@ export default function Sidebar() {
     e.preventDefault();
     signOut(auth).then(() => {
       navigate("/login");
-      toast.success("Ans Your Logout Successfully", {
+      toast.success(" Your Logout Successfully", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

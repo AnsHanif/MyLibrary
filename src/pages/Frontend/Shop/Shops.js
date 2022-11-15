@@ -58,9 +58,12 @@ export default function Shops() {
   // const collectionName2 = 'Orders'
   // const docCollectionRef2 = collection(firestore, collectionName2)
   const handleCart = async (t) => {
-    var storageName = localStorage.getItem('ORDERS');
+    console.log(t.id)
+    let orders = JSON.parse(localStorage.getItem("ORDERS")) || []
 
-    if (storageName == null || [].length == null) {
+    console.log(orders)
+    // return
+    if (orders.length === 0) {
       setcartbtn(false)
       setshoppingCart(true)
       audioPlayer.current.play()
@@ -75,77 +78,96 @@ export default function Shops() {
         Quantity: quantity,
         Id: t.id,
       }
-      var storageName = localStorage.getItem('ORDERS');
-      if (storageName == null) {
-        storageName = [];
-      }
-      else {
-        storageName = JSON.parse(storageName);
-      }
-      storageName.push(Order);
-      localStorage.setItem("ORDERS", JSON.stringify(storageName))
+      orders.push(Order)
+      localStorage.setItem("ORDERS", JSON.stringify(orders))
+    } else {
+      let bookFound = false
+      for (let book of orders) {
+        if (book.Id === t.id) {
+          bookFound = true
 
-    }
-    else {
-      // alert("else is working")
-      const storageName = JSON.parse(localStorage.getItem('ORDERS'))
-      // const check = storageName.find((t) => t.Id == t.id) 
-      // console.log('check =>', check)
-      // return
-      
-      if (storageName.map((t)=>t.Id)  == t.id) {
-        alert("already added in cart")
-      } else {
-        setcartbtn(false)
-        setshoppingCart(true)
-        audioPlayer.current.play()
-
-        let quantity = 1;
-        var Name = t.title;
-        var Price = Math.round(t.price);
-        var Order = {
-          BookName: Name,
-          Price: Price,
-          OriginalPrice: Price,
-          Quantity: quantity,
-          Id: t.id,
+          toast.error("Already Added In Cart", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
-        storageName.push(Order);
-        localStorage.setItem("ORDERS", JSON.stringify(storageName))
+      }
+      if (bookFound == false) {
+      setshoppingCart(true)
+      audioPlayer.current.play()
+
+      let quantity = 1;
+      var Name = t.title;
+      var Price = Math.round(t.price);
+      var Order = {
+        BookName: Name,
+        Price: Price,
+        OriginalPrice: Price,
+        Quantity: quantity,
+        Id: t.id,
+      }
+        orders.push(Order)
+        localStorage.setItem("ORDERS", JSON.stringify(orders))
       }
     }
   }
 
   const handlefavourite = (t) => {
-    audioPlayer2.current.play()
+    let fav = JSON.parse(localStorage.getItem("Favourites")) || []
+    if (fav.length === 0) {
+      audioPlayer2.current.play()
 
       var Name = t.title;
       var Price = Math.round(t.price);
-      var Img = t.image
-      var Favourites = {
-        BookName: Name,
-        Price: Price,
-        Id: t.id,
-        Img:Img,
+        var Name = t.title;
+    var Price = Math.round(t.price);
+    var Img = t.image
+    var Favourites = {
+      BookName: Name,
+      Price: Price,
+      Id: t.id,
+      Img: Img,
+    }
+      fav.push(Favourites)
+      localStorage.setItem("Favourites", JSON.stringify(fav))
+    } else {
+      let favFound = false
+      for (let book of fav) {
+        if (book.Id === t.id) {
+          favFound = true
+
+          toast.error("Already Added In Favourites", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       }
-      var storageName = localStorage.getItem('Favourites');
-      if (storageName == null) {
-        storageName = [];
+      if (favFound == false) {
+      audioPlayer2.current.play()
+
+       var Name = t.title;
+    var Price = Math.round(t.price);
+    var Img = t.image
+    var Favourites = {
+      BookName: Name,
+      Price: Price,
+      Id: t.id,
+      Img: Img,
+    }
+        fav.push(Favourites)
+        localStorage.setItem("Favourites", JSON.stringify(fav))
       }
-      else {
-        storageName = JSON.parse(storageName);
-      }
-      storageName.push(Favourites);
-      localStorage.setItem("Favourites", JSON.stringify(storageName))
-    toast.success('Added in favourites', {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+    }
   }
 
 
@@ -265,7 +287,7 @@ export default function Shops() {
                               <p className='pb-3 shopdes'>{t.description}</p>
                               <div className=' d-flex shopbtns'>
                                 <button className='btn btn-lg text-white Cartbtn' onClick={() => { handleCart(t) }}>Add To Cart</button>
-                                <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='far fa-heart border p-2' onClick={()=>{handlefavourite(t)}} style={{ borderRadius: "50%" }}></i></span>
+                                <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='far fa-heart border p-2 favIcon' onClick={() => { handlefavourite(t) }} style={{ borderRadius: "50%" }}></i></span>
                               </div>
                             </div>
                           </div>
@@ -353,3 +375,91 @@ export default function Shops() {
 // finally{
 //   // setIsLoading(false)
 // }
+
+
+
+    // var storageName = localStorage.getItem('ORDERS');
+
+    // if (storageName == null || [].length == null) {
+    //   setcartbtn(false)
+    //   setshoppingCart(true)
+    //   audioPlayer.current.play()
+
+    //   let quantity = 1;
+    //   var Name = t.title;
+    //   var Price = Math.round(t.price);
+    //   var Order = {
+    //     BookName: Name,
+    //     Price: Price,
+    //     OriginalPrice: Price,
+    //     Quantity: quantity,
+    //     Id: t.id,
+    //   }
+    //   var storageName = localStorage.getItem('ORDERS');
+    //   if (storageName == null) {
+    //     storageName = [];
+    //   }
+    //   else {
+    //     storageName = JSON.parse(storageName);
+    //   }
+    //   storageName.push(Order);
+    //   localStorage.setItem("ORDERS", JSON.stringify(storageName))
+
+    // }
+    // else {
+    //   // alert("else is working")
+    //   const storageName = JSON.parse(localStorage.getItem('ORDERS'))
+    //   // const check = storageName.find((t) => t.Id == t.id) 
+    //   // console.log('check =>', check)
+    //   // return
+
+    //   if (storageName.map((t) => t.Id) == t.id) {
+    //     alert("already added in cart")
+    //   } else {
+    //     setcartbtn(false)
+    //     setshoppingCart(true)
+    //     audioPlayer.current.play()
+
+    //     let quantity = 1;
+    //     var Name = t.title;
+    //     var Price = Math.round(t.price);
+    //     var Order = {
+    //       BookName: Name,
+    //       Price: Price,
+    //       OriginalPrice: Price,
+    //       Quantity: quantity,
+    //       Id: t.id,
+    //     }
+    //     storageName.push(Order);
+    //     localStorage.setItem("ORDERS", JSON.stringify(storageName))
+    //   }
+    // }
+
+
+        // var Name = t.title;
+    // var Price = Math.round(t.price);
+    // var Img = t.image
+    // var Favourites = {
+    //   BookName: Name,
+    //   Price: Price,
+    //   Id: t.id,
+    //   Img: Img,
+    // }
+    // var storageName = localStorage.getItem('Favourites');
+    // if (storageName == null) {
+    //   storageName = [];
+    // }
+    // else {
+    //   storageName = JSON.parse(storageName);
+    // }
+    // storageName.push(Favourites);
+    // localStorage.setItem("Favourites", JSON.stringify(storageName))
+    // toast.success('Added in favourites', {
+    //   position: "top-right",
+    //   autoClose: 1000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    // });

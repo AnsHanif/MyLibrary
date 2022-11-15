@@ -132,7 +132,7 @@ export default function Home() {
           <p className='middlep pr-5'>
             <h2 className='p-4'>STAY WITH US</h2>
             <p className='pl-5 pr-5  middlep2 '>Subscribe to our newsletters now and stay up-to-date with new collections, the latest lookbooks and exclusive offers.</p>
-            <div className='middleinp'><input className='w-100 inp2' placeholder={`${"Enter Your Email"}                                                                   ${"SUBSCRIBE"}`} type="text" /></div>
+            <div className='middleinp'><input className='w-100 inp2' disabled placeholder={`${"Enter Your Email"}                                                                   ${"SUBSCRIBE"}`} type="text" /></div>
           </p>
         </div>
 

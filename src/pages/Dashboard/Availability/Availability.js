@@ -35,7 +35,7 @@ export default function Availability() {
       await setDoc(doc(firestore, "Books", todo.id), formData, { merge: true });
 
       console.log("Book is Available for Sale");
-      toast.success("Added In Completes", {
+      toast.success("Added In Available List", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

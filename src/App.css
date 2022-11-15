@@ -7,7 +7,7 @@
 .roothome{
     display: flex;
     flex-direction: column;
-    min-height: 790vh;
+    min-height: 750vh;
     flex: 1 0 auto;
 }
 .rootshop{
@@ -18,37 +18,43 @@
 }
 @media only screen and (max-width: 1091px) {
     .roothome{
-        min-height: 810vh !important;
+        min-height: 770vh !important;
     }
   }
 @media only screen and (max-width: 991px) {
     .roothome{
-        min-height: 1290vh !important;
+        min-height: 1170vh !important;
     }
   }
 @media only screen and (max-width: 554px) {
     .roothome{
-        min-height: 1350vh !important;
+        min-height: 1230vh !important;
     }
   }
 @media only screen and (max-width: 498px) {
     .roothome{
-        min-height: 1390vh !important;
+        min-height: 1240vh !important;
     }
   }
 @media only screen and (max-width: 461px) {
     .roothome{
-        min-height: 1420vh !important;
+        min-height: 1280vh !important;
     }
   }
-@media only screen and (max-width: 446px) {
+/* @media only screen and (max-width: 446px) {
     .roothome{
-        min-height: 1440vh !important;
+        min-height: 1300vh !important;
     }
-  }
-@media only screen and (max-width: 438px) {
+  } */
+/* @media only screen and (max-width: 438px) {
     .roothome{
         min-height: 1460vh !important;
+    }
+  } */
+
+@media only screen and (max-width: 375px) {
+    .roothome{
+        min-height: 1260vh !important;
     }
   }
 .root3{

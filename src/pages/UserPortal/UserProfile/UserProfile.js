@@ -92,9 +92,9 @@ export default function UserProfile() {
       await setDoc(doc(firestore, "Profile", ProfileId.id), formData, { merge: true });
 
       // console.log("todo updated");
-      toast.success("Todo Updated Successfully", {
+      toast.success("Your Profile Updated Successfully Please Refresh the Page", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

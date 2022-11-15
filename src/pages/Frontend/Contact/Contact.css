@@ -32,7 +32,10 @@
     border-radius: 0;
 }
 .contactbtn:hover{
-    background-color: #ce7852;
+    border-color: #ce7852;
+}
+.btncolor:hover{
+    color: #ce7852 !important;
 }
 
 @media only screen and (max-width: 767px) {

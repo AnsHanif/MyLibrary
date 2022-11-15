@@ -34,8 +34,18 @@ export default function CheckOut() {
     setathome(false)
   }
   const handleOnline = () => {
-    setonline(true)
-    setathome(false)
+    // setonline(true)
+    // setathome(false)
+
+    toast.error("Not Available", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
   const handleOnlineCancel = () => {
     setonline(false)

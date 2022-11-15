@@ -19,7 +19,7 @@ export default function Register() {
   var img = "https://www.yournewfoundation.com/wp-content/uploads/2018/09/Dummy-image.jpg"
   const registerUser = (e) => {
     if (!name) {
-      return toast.error('Please Enter the Password', {
+      return toast.error('Please Enter the Name', {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -102,8 +102,8 @@ export default function Register() {
             <div className='card registerCard'>
               <h1 className='text-center text-white p-5'>Register</h1>
               <div className='text-center pt-3'><label className='text-white registerEmail'>Name</label><span className='spanemail'>______</span><input className='registerInp' onChange={e => { setname(e.target.value) }} type="text" /></div>
-              <div className='text-center pt-3'><label className='text-white registerEmail'>Email</label><span className='spanemail'>_______</span><input className='registerInp' onChange={e => { setemail(e.target.value) }} type="text" /></div>
-              <div className='text-center pt-3'><label className='text-white registerEmail'>Password</label> <input className='registerInp' onChange={e => { setpassword(e.target.value) }} type="text" /></div>
+              <div className='text-center pt-3'><label className='text-white registerEmail'>Email</label><span className='spanemail'>_______</span><input className='registerInp' onChange={e => { setemail(e.target.value) }} type="email" /></div>
+              <div className='text-center pt-3'><label className='text-white registerEmail'>Password</label> <input className='registerInp' onChange={e => { setpassword(e.target.value) }} type="password" /></div>
 
               <div className='text-center pt-5 w-100'><button className='btn registerbtn text-white' onClick={registerUser}>
                 {isLoading ?

@@ -59,7 +59,8 @@ export default function Register() {
         await setDoc (doc(firestore , "Profile" , user.uid),{
           name: name,
           image:img,
-          uid: user.uid
+          uid: user.uid,
+          // role:"user"
         }).then(()=>{
           console.log("create document")
         }).catch((e)=>{

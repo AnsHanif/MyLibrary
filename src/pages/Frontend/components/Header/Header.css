@@ -1,5 +1,6 @@
 .nav1{
     background-color: transparent;
+    width: 100%;
 }
 .nav2 {
     background: #0f0f0fe7;
@@ -14,7 +15,17 @@
         text-align: center;
     }
   }
-
+.carticon{
+    position:absolute;
+    margin-top: -14px;
+    padding: 2px;
+    border-color: red !important;
+}
+.cartIcon{
+    color:red !important;
+    font-size: 13px;
+    /* position:absolute; */
+}
 
 .icondiv{
     display: flex;
@@ -48,3 +59,5 @@
     display: flex;
     padding: 5px;
 }
+
+

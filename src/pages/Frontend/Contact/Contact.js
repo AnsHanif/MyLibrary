@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef,useState } from 'react'
 import './Contact.css'
 import emailjs from '@emailjs/browser';
 import image1 from '../../../assests/images/8.webp'
@@ -6,10 +6,57 @@ import image1 from '../../../assests/images/8.webp'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Contact() {
+  const [name, setname] = useState("")
+  const [email, setemail] = useState("")
+  const [subject, setsubject] = useState("")
+  const [msg, setmsg] = useState()
   const form = useRef();
 const sendEmail = (e)=>{
   e.preventDefault();
-
+  if (!email) {
+    return toast.error('Please Enter the Email', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+  if (!name) {
+    return toast.error('Please Enter Your Name', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+  if (!subject) {
+    return toast.error('Please Enter Any Subject', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+  if (!msg) {
+    return toast.error('Please Enter the Message', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
   emailjs.sendForm('service_cm2bcc2', 'template_u29n0xq',  form.current, 'I85F793TgDXSv7m1u')
     .then((result) => {
         console.log(result.text);
@@ -45,15 +92,15 @@ const sendEmail = (e)=>{
             <form ref={form} onSubmit={sendEmail}>
               <div className="container-fluid">
                 <div className="row pt-4">
-                  <div className="col-12 col-md-6 pt-1"><input className='contactInp' placeholder='Name *' type="text" name='name' /></div>
-                  <div className="col-12 col-md-6 pt-1 contactemailInp"><input className='contactInp' placeholder='Email *' type="text" name='user_email'/></div>
+                  <div className="col-12 col-md-6 pt-1"><input className='contactInp' placeholder='Name *' type="text" name='name' onChange={e => { setname(e.target.value) }} /></div>
+                  <div className="col-12 col-md-6 pt-1 contactemailInp"><input className='contactInp' placeholder='Email *' type="text" name='user_email' onChange={e => { setemail(e.target.value) }}/></div>
                 </div>
                 <div className="row pt-5">
-                  <div className="col"><input className='contactInp' placeholder='Subject *' name='subject'/></div>
+                  <div className="col"><input className='contactInp' placeholder='Subject *' name='subject' onChange={e => { setsubject(e.target.value) }}/></div>
                 </div>
                 <div className="row pt-4">
                   <div className="col pt-3">
-                    <textarea className='contactInp2' placeholder='Type Your Message Here' name='message'/>
+                    <textarea className='contactInp2' placeholder='Type Your Message Here' name='message' onChange={e => { setmsg(e.target.value) }}/>
                   </div>
                 </div>
                 <div className="row pt-4">

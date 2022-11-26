@@ -1,22 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import "./UserProfile.css"
+import "../../UserPortal/UserProfile/UserProfile.css"
 import { AuthContext2 } from '../../../contexts/AuthContext2'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, setDoc, doc, query, where, getDocs } from 'firebase/firestore/lite';
 import { storage, firestore } from '../../../config/firebase'
-export default function UserProfile() {
+export default function Profile() {
   const { user } = useContext(AuthContext2)
   console.log(user.uid)
   // const useremail = user.email
   const [newName, setNewName] = useState("")
   const [img, setimg] = useState(null)
-  const [cityName, setcityName] = useState("")
-  const [countryName, setcountryName] = useState("")
-  const [address, setaddress] = useState("")
-  const [phoneNo, setphoneNo] = useState("")
   const [documents, setdocuments] = useState([])
   const [isLoading, setisLoading] = useState(true)
   console.log(documents)
@@ -42,51 +38,7 @@ export default function UserProfile() {
   const uploadImage = (e) => {
     e.preventDefault()
     if (!newName) {
-      return toast.error('Please Enter the Name', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    if (!cityName) {
-      return toast.error('Please Enter Your City Name', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    if (!countryName) {
-      return toast.error('Please Enter Your Counrty Name', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    if (!phoneNo) {
-      return toast.error('Please Enter Your Phone Number', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    if (!address) {
-      return toast.error('Please Enter Your Address', {
+      return toast.error('Please Enter the title', {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -132,7 +84,7 @@ export default function UserProfile() {
 
   const handleUpdate = async (downloadURL) => {
     // console.log("t",t)
-    let formData = { name: newName,image:downloadURL,cityName,address,countryName,phoneNo };
+    let formData = { name: newName,image:downloadURL };
     // formData.image = downloadURL
     try {
       await setDoc(doc(firestore, "Profile", ProfileId.id), formData, { merge: true });
@@ -200,32 +152,12 @@ export default function UserProfile() {
                   <div className="container">
                     <div className="row pt-2">
                       <div className="col">
-                        <label style={{ fontSize: "18px" }}>Name: <span className='text-white'>---------</span> </label> <input type="text" onChange={(e) => setNewName(e.target.value)} className='UPinp' />
+                        <label style={{ fontSize: "18px" }}>Name: <span className='text-white'>--------</span> </label> <input type="text" onChange={(e) => setNewName(e.target.value)} className='UPinp' />
                       </div>
                     </div>
                     <div className="row pt-2">
                       <div className="col">
-                        <label style={{ fontSize: "18px" }}>City Name: <span className='text-white'>----</span> </label> <input type="text" onChange={(e) => setcityName(e.target.value)} className='UPinp' />
-                      </div>
-                    </div>
-                    <div className="row pt-2">
-                      <div className="col">
-                        <label style={{ fontSize: "18px" }}>Address: <span className='text-white'>:------</span> </label> <input type="text" onChange={(e) => setaddress(e.target.value)} className='UPinp' />
-                      </div>
-                    </div>
-                    <div className="row pt-2">
-                      <div className="col">
-                        <label style={{ fontSize: "18px" }}>Country Name: </label> <input type="text" onChange={(e) => setcountryName(e.target.value)} className='UPinp' />
-                      </div>
-                    </div>
-                    <div className="row pt-2">
-                      <div className="col">
-                        <label style={{ fontSize: "18px" }}>Phone No: <span className='text-white'>:----</span> </label> <input type="text" onChange={(e) => setphoneNo(e.target.value)} className='UPinp' />
-                      </div>
-                    </div>
-                    <div className="row pt-2">
-                      <div className="col">
-                        <label style={{ fontSize: "18px" }}>Profile Picture: <span className='text-white'>:</span></label> <input type="file" onChange={e => { setimg(e.target.files[0]) }} className='UPinp' />
+                        <label style={{ fontSize: "18px" }}>Profile Picture: </label> <input type="file" onChange={e => { setimg(e.target.files[0]) }} className='UPinp' />
                       </div>
                     </div>
                   </div>

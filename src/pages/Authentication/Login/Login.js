@@ -117,6 +117,7 @@ export default function Login() {
     signInWithPopup(auth , provider)
     .then((result)=>{
       console.log(result)
+      setOrGetUserDoc(result.user)
       navigate("/userProfile")
       toast.success('Login Through FaceBook Successfully', {
         position: "top-right",
@@ -167,6 +168,7 @@ export default function Login() {
         name: user.displayName,
         image: user.photoURL,
         uid: user.uid,
+        // role: "user"
       },
       { merge: true })
       .then(() => {

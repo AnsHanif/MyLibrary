@@ -111,7 +111,7 @@ const [documents, setdocuments] = useState([])
             <div className="col"><span className='text'>New Title:<span className='text-white dash1'>-------</span></span><br className='br1'/><input type="text" defaultValue={t.title} onChange={e=>{setNewTitle(e.target.value)}} className='inp1' /> </div>
           </div>
           <div className="row p-3">
-            <div className="col"><span className='text'>New Description:</span><br className='br1'/><input type="text" onChange={e=>{setNewDescription(e.target.value)}} defaultValue={t.description} className='inp1' /> </div>
+            <div className="col"><span className='text'>New Des.<span className='text-white'>.</span>:<span className='text-white dash1'>-------</span></span><br className='br1'/><input type="text" onChange={e=>{setNewDescription(e.target.value)}} defaultValue={t.description} className='inp1' /> </div>
           </div>
           <div className="row p-3">
             <div className="col"><span className='text'>New Price:<span className='text-white dash1'>-------</span></span><br className='br1'/><input type="number" defaultValue={t.price} onChange={e=>{setNewPrice(e.target.value)}} className='inp1' /> </div>

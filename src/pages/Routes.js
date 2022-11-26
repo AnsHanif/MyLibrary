@@ -6,7 +6,8 @@ import Dashboard from "../pages/Dashboard"
 import Login from './Authentication/Login'
 import Register from './Authentication/Register'
 import PrivateRoute from './important/PrivateRoute'
-import UserPortal from './UserPortal/'
+import PrivateRoute2 from './important/PrivateRoute2'
+import UserPortal from './UserPortal'
 export default function Index() {
   const { isAuthenticated } = useContext(AuthContext2)
 
@@ -14,8 +15,8 @@ export default function Index() {
     <BrowserRouter>
     <Routes>
     <Route path="/*" element={<Frontend />} />
-    <Route path="/dashboard/*" element={<Dashboard />} />
-    <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/userPortal" element={<UserPortal />}/>} />
+    <Route path="/dashboard/*" element={!isAuthenticated ? <Login /> : <PrivateRoute2 />} />
+    <Route path="/login" element={!isAuthenticated ? <Login /> : <PrivateRoute2 />} />
     <Route path="/register" element={<Register />} />
     <Route path="/userPortal/*" element={<PrivateRoute />} />
     </Routes>

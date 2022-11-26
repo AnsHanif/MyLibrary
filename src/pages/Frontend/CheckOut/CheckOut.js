@@ -7,10 +7,12 @@ import { AuthContext2 } from '../../../contexts/AuthContext2'
 import { collection,getDocs,query,where,addDoc,serverTimestamp } from 'firebase/firestore/lite'
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function CheckOut() {
-    const {setshoppingCart} = useContext(AuthContext)
-  const { user } = useContext(AuthContext2)
+    const {setshoppingCart,setshoppingCartLength} = useContext(AuthContext)
+  const { user,isAuthenticated } = useContext(AuthContext2)
   const [documents, setdocuments] = useState([])
   const [athome, setathome] = useState(true)
   const [online, setonline] = useState(false)
@@ -102,17 +104,138 @@ const handleRemove = (t)=>{
     window.localStorage.setItem("ORDERS",JSON.stringify(storageName))
   let data = JSON.parse(window.localStorage.getItem("ORDERS"))
   setStorageName(data)
+  setshoppingCartLength(data.length)
   }
 }
+const navigate = useNavigate();
+
 let order = JSON.parse(window.localStorage.getItem("ORDERS"))
 
   const collectionName = 'Orders'
   const docCollectionRef = collection(firestore, collectionName)
 const handleCheckOut = async ()=>{
-  if (order.length == 0) {
-    return toast.error('Please Add Some Items In Cart', {
+  if(isAuthenticated){
+    if (order.length == 0) {
+      return toast.error('Please Add Some Items In Cart', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!firstName) {
+      return toast.error('Please Enter Your First Name', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!countryName) {
+      return toast.error('Please Enter Your Country Name', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!cityName) {
+      return toast.error('Please Enter Your City Name', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!address) {
+      return toast.error('Please Enter Your Address', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!postCode) {
+      return toast.error('Please Enter the PostCode of your Area', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!phone) {
+      return toast.error('Please Enter Your Phone Number', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    if (!email) {
+      return toast.error('Please Enter Your Email', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  
+  let formData = {firstName,lastName,cityName,countryName,address,postCode,phone,email,order,dateAddedInFav: serverTimestamp() , useruid: user.uid,}
+  
+  try{
+    const docRef = await addDoc(docCollectionRef,formData);
+    console.log('ID',docRef.id);
+    toast.success('Your Order Received Successfully and will send to you soon', {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    localStorage.removeItem('ORDERS')
+    setStorageName([])
+    setshoppingCart(false)
+    setFirstName("")
+    setAddress("")
+    setLastName("")
+    setEmail("")
+    setPhone("")
+    setPostCode("")
+    setCityName("")
+    setCountryName("")
+    setcompleteAddress("")
+    const Removed = JSON.parse(localStorage.getItem('ORDERS')) || []
+    setshoppingCartLength(Removed.length)
+  }catch(e){
+    toast.error(e,{
+      position: "top-right",
+      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -120,132 +243,42 @@ const handleCheckOut = async ()=>{
       progress: undefined,
     });
   }
-  if (!firstName) {
-    return toast.error('Please Enter Your First Name', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  finally{
+    // setIsLoading(false)
   }
-  if (!countryName) {
-    return toast.error('Please Enter Your Country Name', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
   }
-  if (!cityName) {
-    return toast.error('Please Enter Your City Name', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  else{
+    navigate("/login")
   }
-  if (!address) {
-    return toast.error('Please Enter Your Address', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-  if (!postCode) {
-    return toast.error('Please Enter the PostCode of your Area', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-  if (!phone) {
-    return toast.error('Please Enter Your Phone Number', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-  if (!email) {
-    return toast.error('Please Enter Your Email', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  }
-
-let formData = {firstName,lastName,cityName,countryName,address,postCode,phone,email,order,dateAddedInFav: serverTimestamp() , useruid: user.uid,}
-
-try{
-  const docRef = await addDoc(docCollectionRef,formData);
-  console.log('ID',docRef.id);
-  toast.success('Your Order Received Successfully and will send to you soon', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-  localStorage.removeItem('ORDERS')
-  setStorageName([])
-  setshoppingCart(false)
-  setFirstName("")
-  setAddress("")
-  setLastName("")
-  setEmail("")
-  setPhone("")
-  setPostCode("")
-  setCityName("")
-  setCountryName("")
-  setcompleteAddress("")
-}catch(e){
-  toast.error('Error', e,{
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
 }
-finally{
-  // setIsLoading(false)
-}
-}
 
 
+const collectionName2 = 'Profile'
+  const docCollectionRef2 = collection(firestore, collectionName2)
+  const readDocs = async () => {
+    let array = [];
+    const q = query(docCollectionRef2, where("uid", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      array.push({ ...doc.data(), id: doc.id });
+    });
+    setdocuments(array);
+    setFirstName(array.map((t)=>t.name))
+    setCityName(array.map((t)=>t.cityName))
+    setCountryName(array.map((t)=>t.countryName))
+    setPhone(array.map((t)=>t.phoneNo))
+    setEmail(user.email)
+    setAddress(array.map((t)=>t.address))
+  };
 
 useEffect(() => {
   handlePrice()
   handlequantity()
 }, [storageName])
+
+useEffect(() => {
+ readDocs()
+}, [])
 
 
   return (
@@ -258,7 +291,7 @@ useEffect(() => {
           <h3><b>Billing Details</b></h3>
           <div className="container-fluid">
             <div className="row pt-3 pb-3">
-              <div className="col-12 col-md-6"><span style={{ fontSize: '18px' }}>First Name </span><span style={{ color: "red", fontSize: '20px' }}>*</span> <br /><input type='text' value={firstName} onChange={e => { setFirstName(e.target.value) }} className='COinp' /></div>
+              <div className="col-12 col-md-6"><span style={{ fontSize: '18px' }}>First Name </span><span style={{ color: "red", fontSize: '20px' }}>*</span> <br /><input type='text' value={firstName}  onChange={e => { setFirstName(e.target.value) }} className='COinp' /></div>
               <div className="col-12 col-md-6"><span style={{ fontSize: '18px' }}>Last Name </span><span style={{ color: "red", fontSize: '20px' }}>*</span> <br /><input type='text' className='COinp' value={lastName}  onChange={e => { setLastName(e.target.value) }}/></div>
             </div>
             <div className="row pb-3">
@@ -311,7 +344,7 @@ useEffect(() => {
               return <>
                 <div className='d-flex pl-2 pb-3' style={{ fontSize: "25px" }}>
                   <div className='Pdiv' style={{width:"25%"}}><p className='pt-3' style={{ color: "gray" }}>{t.BookName}</p></div>
-                  <div className='tdiv' style={{width:"25%"}}><p className='pt-3' style={{ color: "gray" }}>{t.Price}</p></div>
+                  <div className='tdiv' style={{width:"25%"}}><p className='pt-3' style={{ color: "gray" }}>{t.OriginalPrice}</p></div>
                   <div className='tdiv' style={{width:"25%"}}><p className='pt-3 d-flex justify-content-center align-items-center' style={{ color: "gray" }}>{t.Quantity}  </p></div>
                   <div className='tdiv pt-3' style={{width:"25%"}}><i class="fas fa-plus-square" onClick={()=>{handleInc(t)}}></i> <i class="fas fa-minus-square" onClick={()=>{handledec(t)}}></i> <i class="fas fa-trash-alt" onClick={()=>{handleRemove(t)}} style={{ fontSize: "23px" }}></i></div>
                 </div>

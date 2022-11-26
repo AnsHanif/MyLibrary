@@ -60,7 +60,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className='div1'>
+    <div>
       <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
@@ -70,7 +70,7 @@ export default function Home() {
             <img className="d-block w-100" src={image2} alt="Second slide" height="453" />
           </div>
         </div>
-        <div class="container div2 ">
+        <div class="container-fluid div2 ">
           <div class="row">
             <h2 className='p1'>Buy Your Favourite <span style={{ color: "#ce7852" }}>Book</span> <br /> From <span style={{ color: "#ce7852" }}>Here</span> <br /> <span style={{ fontSize: "20px" }}>Shop Now <i class="fas fa-arrow-right"></i></span></h2>
           </div>
@@ -106,7 +106,7 @@ export default function Home() {
                       {!t.inActive &&
                         <>
                           {t.isAvailable &&
-                            <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
+                            <div className='col-12 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
                               <div className="card cardHome"  onClick={handleCardBtn}>
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">
@@ -169,7 +169,7 @@ export default function Home() {
                         {!t.inActive &&
                           <>
                             {t.isAvailable &&
-                              <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4'>
+                              <div className='col-12 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4'>
                                 <div className="card cardHome" onClick={handleCardBtn}>
                                   <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                   <div className="card-body">
@@ -276,7 +276,7 @@ export default function Home() {
                           {!t.inActive &&
                           <>
                           
-                            <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
+                            <div className='col-12 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
                               <div className="card cardHome" onClick={handleCardBtn}>
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">

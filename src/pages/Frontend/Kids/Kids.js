@@ -71,7 +71,7 @@ export default function Kids() {
                       {!t.inActive &&
                         <>
                           {t.isAvailable &&
-                            <div className='col-6 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
+                            <div className='col-12 col-md-6 col-lg-3 cards d-flex justify-content-center align-items-center mb-3 pl-4 '>
                               <div className="card cardHome" onClick={handleCardBtn}>
                                 <img className="card-img-top" src={t.image} height={"250px"} alt="Card image cap" />
                                 <div className="card-body">

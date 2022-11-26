@@ -11,15 +11,16 @@ import Contact from './Contact'
 import CheckOut from './CheckOut'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import ScrollToTop from './ScrollToTop'
 export default function Index() {
   const { classes, setclasses } = useContext(AuthContext)
   useEffect(() => {
-    if (window.location.pathname === "/") {
-      return setclasses("roothome")
-    }
-    if (window.location.pathname === "/shops") {
-      return setclasses("rootshop")
-    }
+    // if (window.location.pathname === "/") {
+    //   return setclasses("roothome")
+    // }
+    // if (window.location.pathname === "/shops") {
+    //   return setclasses("rootshop")
+    // }
     // if (window.location.pathname === "/books") {
     //   return setclasses("root2")
     // }
@@ -41,7 +42,8 @@ export default function Index() {
   }, [])
   // const [classes, setclasses] = useState("")
   return (
-    <div className={classes}>
+    <div className="roothome">
+      <ScrollToTop>
       <Header />
       <main>
         <Routes>
@@ -56,6 +58,7 @@ export default function Index() {
         </Routes>
       </main>
       <Footer />
+      </ScrollToTop>
     </div>
   )
 }

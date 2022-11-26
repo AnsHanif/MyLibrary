@@ -83,7 +83,7 @@ export default function Orders() {
 :
 <>
 <h2 className='text-center'>You don't have Any Orders</h2>
-<p className='text-center'>Click Here <Link to="/shops">Shop</Link> If You Want to Buy Something</p>
+<p className='text-center'>Click Here <Link to="/shops"><b>Shop</b></Link> If You Want to Buy Something</p>
 </>
 }
           </>)}

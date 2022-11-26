@@ -12,16 +12,16 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Shops() {
-  const { setshoppingCart } = useContext(AuthContext)
+  const { setshoppingCart,setshoppingCartLength,setisfav } = useContext(AuthContext)
   const { isAuthenticated, setisAuthenticated, user } = useContext(AuthContext2)
   const [shopbtns, setshopbtns] = useState(true)
   const audioPlayer = useRef(null)
   const audioPlayer2 = useRef(null)
 
-  const [inpSliderValue, setInpSliderValue] = useState(400)
+  const [inpSliderValue, setInpSliderValue] = useState(0)
+  // const [favId, setfavId] = useState()
   const [documents, setdocuments] = useState([])
   const [filteredDocuments, setFilteredDocuments] = useState([])
-  const [btnDocument, setbtnDocument] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [cartbtn, setcartbtn] = useState(true)
 
@@ -55,6 +55,42 @@ export default function Shops() {
     }
   }
 
+  const handleFilter = ()=>{
+
+    if (inpSliderValue >= 2500 && inpSliderValue <= 2999) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 3000)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >=3000 && inpSliderValue <=3099) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 3100)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >= 3100 && inpSliderValue <=3499) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 3500)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >= 3500 && inpSliderValue <=4499) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 4500)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >= 4500 && inpSliderValue <=4999) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 5000)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >= 5000 && inpSliderValue <= 7824) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 7825)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >= 7825 && inpSliderValue <= 8942) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 8943)
+        setFilteredDocuments(filteredDocuments)
+      }
+      if (inpSliderValue >= 8943) {
+        let filteredDocuments = documents.filter((book) => Math.round(book.price) < 8944)
+        setFilteredDocuments(filteredDocuments)
+      }
+  }
+
   // const collectionName2 = 'Orders'
   // const docCollectionRef2 = collection(firestore, collectionName2)
   const handleCart = async (t) => {
@@ -78,8 +114,18 @@ export default function Shops() {
         Quantity: quantity,
         Id: t.id,
       }
+      toast.success('Added In Cart', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       orders.push(Order)
       localStorage.setItem("ORDERS", JSON.stringify(orders))
+      setshoppingCartLength(JSON.parse(window.localStorage.getItem("ORDERS")).length)
     } else {
       let bookFound = false
       for (let book of orders) {
@@ -111,14 +157,25 @@ export default function Shops() {
         Quantity: quantity,
         Id: t.id,
       }
+      toast.success('Added In Cart', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
         orders.push(Order)
         localStorage.setItem("ORDERS", JSON.stringify(orders))
+        setshoppingCartLength(JSON.parse(window.localStorage.getItem("ORDERS")).length)
       }
     }
   }
 
+  let fav = JSON.parse(localStorage.getItem("Favourites")) || []
   const handlefavourite = (t) => {
-    let fav = JSON.parse(localStorage.getItem("Favourites")) || []
+     let fav = JSON.parse(localStorage.getItem("Favourites")) || []
     if (fav.length === 0) {
       audioPlayer2.current.play()
 
@@ -133,8 +190,18 @@ export default function Shops() {
       Id: t.id,
       Img: Img,
     }
+    toast.success('Added From Favourites', {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
       fav.push(Favourites)
       localStorage.setItem("Favourites", JSON.stringify(fav))
+      setisfav(JSON.parse(window.localStorage.getItem("Favourites")))
     } else {
       let favFound = false
       for (let book of fav) {
@@ -143,7 +210,7 @@ export default function Shops() {
 
           toast.error("Already Added In Favourites", {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -164,14 +231,30 @@ export default function Shops() {
       Id: t.id,
       Img: Img,
     }
+    toast.success('Added From Favourites', {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
         fav.push(Favourites)
         localStorage.setItem("Favourites", JSON.stringify(fav))
+        setisfav(JSON.parse(window.localStorage.getItem("Favourites")))
       }
     }
   }
 
+  
 
   useEffect(() => {
+    // for (let book of fav) {
+    //   if ( documents.map((t)=>t.id === book.Id)) {
+    //     console.log(book.Id)
+    //   }
+    // }
     readDocs()
   }, [])
   return (
@@ -183,36 +266,36 @@ export default function Shops() {
         <div className='sidediv'>
           <h5>PRODUCT CATEGORIES</h5>
           <hr className='bg-dark' />
-          <button className='btn shopbtn pt-2' onClick={() => { handleFilteredDocuments("heros") }}><div className='btndiv2'>Biography<span className='text-white'>-------------------</span>(3)</div></button>
+          <button className='btn shopbtn pt-2' onClick={() => { handleFilteredDocuments("heros") }}><div className='btndiv2'>Biography<span className='text-white'>-------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
           <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>Business<span className='text-white'>---------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("kids") }}><div className='btndiv2'>Cookbooks<span className='text-white'>------------------</span>(6)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("kids") }}><div className='btndiv2'>Cookbooks<span className='text-white'>------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("heros") }}><div className='btndiv2'>Health & Fitness<span className='text-white'>------------</span>(7)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("heros") }}><div className='btndiv2'>Health & Fitness<span className='text-white'>------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>History<span className='text-white'>-----------------------</span>(8)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>History<span className='text-white'>-----------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>Mystery<span className='text-white'>-----------------------</span>(9)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>Mystery<span className='text-white'>----------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("kids") }}><div className='btndiv2'>Inspiration<span className='text-white'>-------------------</span>(13)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("kids") }}><div className='btndiv2'>Inspiration<span className='text-white'>-------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("heros") }}><div className='btndiv2'>Romance<span className='text-white'>--------------------</span>(20)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("heros") }}><div className='btndiv2'>Romance<span className='text-white'>---------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>Harry Potter<span className='text-white'>-----------------</span>(20)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("adventure") }}><div className='btndiv2'>Harry Potter<span className='text-white'>-------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
-          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("kids") }}><div className='btndiv2'>Kids' Music<span className='text-white'>-----------------</span>(60)</div></button>
+          <button className='btn shopbtn' onClick={() => { handleFilteredDocuments("kids") }}><div className='btndiv2'>Kids' Music<span className='text-white'>--------------------</span>(4)</div></button>
           <hr style={{ borderTop: "dotted 1px", color: "gray" }} />
 
           <h5 className='pt-3'>FILTER BY PRICE</h5>
           <hr className='bg-dark' />
           <div className='range text-left'>
             <div className='field p-2'>
-              <input className='inpshop' onChange={e => { setInpSliderValue(e.target.value) }} type="range" min="101" max="500" steps="1" />
+              <input className='inpshop' onChange={e => { setInpSliderValue(e.target.value) }} type="range" min="2500" max="8943" steps="1" />
             </div>
             <div className='pl-3'>
-              <p>Price: <b>$101 - {`${inpSliderValue}$`}</b> </p>
-              <button className='btn btn-dark'>Filter</button>
+              <p>Price: <b>$2500 - {`${inpSliderValue}$`}</b> </p>
+              <button className='btn btn-dark' onClick={handleFilter}>Filter</button>
             </div>
           </div>
 
@@ -242,7 +325,7 @@ export default function Shops() {
             <div className='one d-flex'><div className={`idiv border text-center ${!shopbtns ? "text-primary" : "text-dark"}`} onClick={() => { setshopbtns(false) }}>{<FaTh size={22} />}</div><span className='text-white'>--</span><div className={`idiv border text-center ${shopbtns ? "text-primary" : "text-dark"}`} onClick={() => { setshopbtns(true) }} style={{ paddingTop: "3px" }} ><i className="fas fa-list" style={{ fontSize: "22px" }} ></i></div></div>
             <div className='two'>Showing 1-12 of 40 results</div>
             <div className='three'><span className='pt-1'>Sort By</span><select className='select'><option>Default Sorting</option><option>Heros</option><option>adventure</option><option>Kids</option></select>
-              <div className="dropdown show">
+              <div className="dropdown1 show">
                 <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Default Sorting
                 </a>
@@ -287,7 +370,11 @@ export default function Shops() {
                               <p className='pb-3 shopdes'>{t.description}</p>
                               <div className=' d-flex shopbtns'>
                                 <button className='btn btn-lg text-white Cartbtn' onClick={() => { handleCart(t) }}>Add To Cart</button>
+                                {/* {(fav.filter((t)=>t.Id === t.id))  ?   */}
+                                {/* <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='fas fa-heart p-2 text-danger'></i></span> */}
+                                {/* : */}
                                 <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='far fa-heart border p-2 favIcon' onClick={() => { handlefavourite(t) }} style={{ borderRadius: "50%" }}></i></span>
+                                {/* } */}
                               </div>
                             </div>
                           </div>
@@ -343,100 +430,15 @@ export default function Shops() {
 
 
 
-// var Name = t.title;
-// var Price = Math.round(t.price);
-// var Quantity = 1;
-// let formData = {Name,Price,Quantity, useruid: user.uid,}
 
-// try{
-//   const docRef = await addDoc(docCollectionRef2,formData);
-//   console.log('ID',docRef.id);
-//   toast.success('Todo Added successfuly', {
-//     position: "top-right",
-//     autoClose: 5000,
-//     hideProgressBar: false,
-//     closeOnClick: true,
-//     pauseOnHover: true,
-//     draggable: true,
-//     progress: undefined,
-//   });
-//   // setshowHomePage(true)
-// }catch(e){
-//   toast.error('Error', e,{
-//     position: "top-right",
-//     autoClose: 5000,
-//     hideProgressBar: false,
-//     closeOnClick: true,
-//     pauseOnHover: true,
-//     draggable: true,
-//     progress: undefined,
-//   });
-// }
-// finally{
-//   // setIsLoading(false)
-// }
+    // <span className='pl-5 CartIcon' style={{ fontSize: "30px" }}><i className='far fa-heart border p-2 favIcon' onClick={() => { handlefavourite(t) }} style={{ borderRadius: "50%" }}></i></span>
 
 
 
-    // var storageName = localStorage.getItem('ORDERS');
 
-    // if (storageName == null || [].length == null) {
-    //   setcartbtn(false)
-    //   setshoppingCart(true)
-    //   audioPlayer.current.play()
+    // audioPlayer2.current.play()
 
-    //   let quantity = 1;
-    //   var Name = t.title;
-    //   var Price = Math.round(t.price);
-    //   var Order = {
-    //     BookName: Name,
-    //     Price: Price,
-    //     OriginalPrice: Price,
-    //     Quantity: quantity,
-    //     Id: t.id,
-    //   }
-    //   var storageName = localStorage.getItem('ORDERS');
-    //   if (storageName == null) {
-    //     storageName = [];
-    //   }
-    //   else {
-    //     storageName = JSON.parse(storageName);
-    //   }
-    //   storageName.push(Order);
-    //   localStorage.setItem("ORDERS", JSON.stringify(storageName))
-
-    // }
-    // else {
-    //   // alert("else is working")
-    //   const storageName = JSON.parse(localStorage.getItem('ORDERS'))
-    //   // const check = storageName.find((t) => t.Id == t.id) 
-    //   // console.log('check =>', check)
-    //   // return
-
-    //   if (storageName.map((t) => t.Id) == t.id) {
-    //     alert("already added in cart")
-    //   } else {
-    //     setcartbtn(false)
-    //     setshoppingCart(true)
-    //     audioPlayer.current.play()
-
-    //     let quantity = 1;
-    //     var Name = t.title;
-    //     var Price = Math.round(t.price);
-    //     var Order = {
-    //       BookName: Name,
-    //       Price: Price,
-    //       OriginalPrice: Price,
-    //       Quantity: quantity,
-    //       Id: t.id,
-    //     }
-    //     storageName.push(Order);
-    //     localStorage.setItem("ORDERS", JSON.stringify(storageName))
-    //   }
-    // }
-
-
-        // var Name = t.title;
+    //    var Name = t.title;
     // var Price = Math.round(t.price);
     // var Img = t.image
     // var Favourites = {
@@ -445,16 +447,7 @@ export default function Shops() {
     //   Id: t.id,
     //   Img: Img,
     // }
-    // var storageName = localStorage.getItem('Favourites');
-    // if (storageName == null) {
-    //   storageName = [];
-    // }
-    // else {
-    //   storageName = JSON.parse(storageName);
-    // }
-    // storageName.push(Favourites);
-    // localStorage.setItem("Favourites", JSON.stringify(storageName))
-    // toast.success('Added in favourites', {
+    // toast.success('Added From Favourites', {
     //   position: "top-right",
     //   autoClose: 1000,
     //   hideProgressBar: false,
@@ -463,3 +456,6 @@ export default function Shops() {
     //   draggable: true,
     //   progress: undefined,
     // });
+    //     fav.push(Favourites)
+    //     localStorage.setItem("Favourites", JSON.stringify(fav))
+    //     setisfav(JSON.parse(window.localStorage.getItem("Favourites")))

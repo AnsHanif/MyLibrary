@@ -5,7 +5,7 @@ import { AuthContext2 } from '../../../../contexts/AuthContext2';
 import { signOut } from 'firebase/auth'
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent, SidebarFooter } from 'react-pro-sidebar';
+import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarContent, SidebarFooter } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { FaPlus, FaHome, FaCheckCircle, FaServicestack, FaShoppingCart, FaPaste } from 'react-icons/fa';
 import {  CgProfile,CgHeart} from 'react-icons/cg';

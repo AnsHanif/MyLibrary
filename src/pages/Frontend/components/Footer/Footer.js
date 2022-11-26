@@ -43,7 +43,7 @@ export default function Footer() {
             smooth:true, offset:50 
           })
         }}> All Products </button></div>
-        <div className='footdiv'><Link to="/contact"> <button className='foottext btn'> Contact </button></Link></div>
+        <div className='footdiv extradiv'><Link to="/contact"> <button className='foottext btn'> Contact </button></Link></div>
       </div>
     </div>
   )

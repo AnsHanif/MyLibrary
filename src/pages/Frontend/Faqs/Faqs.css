@@ -37,6 +37,14 @@
         font-size: 10px !important;
     }
    }
+   @media only screen and (max-width: 400px) {
+    .headfaq{
+       font-size: 8px !important;
+    }
+    .bodyfaq{
+        font-size: 10px !important;
+    }
+   }
 
 @media only screen and (max-width: 504px) {
     .faqdiv{

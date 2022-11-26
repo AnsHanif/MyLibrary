@@ -2,7 +2,7 @@ import React from 'react'
 import './About.css'
 import image1 from '../../../assests/images/6.webp'
 import image2 from '../../../assests/profile/Pic.jpg'
-import image3 from '../../../assests/profile/Pic2.jpg'
+import image3 from '../../../assests/profile/Pic2.png'
 import { Link } from 'react-router-dom'
 export default function About() {
 
@@ -64,7 +64,7 @@ export default function About() {
           <div className='abtImgdiv3'>
             <img className="d-block w-100" src={image2} alt="First slide" height="420" />
             <h5 className='text-center pt-3'>Muhammad Anas</h5>
-            <p className='text-center text-secondary' style={{ fontSize: "13px" }}>Juniour Developer</p>
+            <p className='text-center text-secondary' style={{ fontSize: "13px" }}>Developer</p>
             <div className='text-center pb-5'>
               <a href="https://www.twitter.com/@AnsGujjar_01" target="_blank" >
                 <i class="fa-brands fa-twitter" style={{ color: "#1da1f2", fontSize: "20px" }}></i>

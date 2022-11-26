@@ -32,11 +32,11 @@
     justify-content: right ;
     align-items: right ;
 }
-.dropdown{
+.dropdown1{
     display: none;
 }
 @media only screen and (max-width: 590px) {
-    .centerdiv2,.three,.dropdown{
+    .centerdiv2,.three,.dropdown1{
         display: block;
     }
     .one,.two,.three{
@@ -95,7 +95,11 @@
         margin-right: 50px;
     }
     .CartIcon{
-        display: none;
+        /* display: none; */
+        padding-right: 80px !important;
+    }
+    .favIcon{
+        margin-top: 20px !important;
     }
     .CardImg{
         width: 80% !important;
@@ -131,6 +135,10 @@
 @media only screen and (max-width: 890px) {
     .sidediv{
         display: none;
+    }
+    .centerdiv{
+        overflow-y: auto;
+        height: 100%;
     }
   }
 
